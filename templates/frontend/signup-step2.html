@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Project Name</title>
+		<link href="/static_files/css/style.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		<div class="maincon">
+			<div class="header">
+<div class="header1">
+    header1
+</div>
+<div class="header2">
+    header2
+</div>
+<div class="header3">
+    header3
+			
+                </div>                
+                        
+			</div>
+			<div class="topnav">
+				<ul>
+					<li><a href="/">Home</a></li>
+					<li><a href="noticeboard.html/">Notice Board</a></li>
+					<li><a href="/magaziene.html/">Magaziene</a></li>
+					<li><a href="/sociallife.html/">Social Life</a></li>
+					<li><a href="/contactme.html/">Contact Us</a></li>
+					<li style="border:none;"><a href="/aboutus.html/">About Us</a></li>
+				</ul>
+				<div class="clear"></div>
+			</div>
+			<div class="flash">
+
+			</div>
+			<div class="mainbody">
+				<div class="left">
+
+				</div>
+				<div class="center">
+
+				</div>
+				<div class="right">
+<table>
+    <tr>
+        <td><a href='/signup-step3/'>Process</a></td>
+    </tr>
+
+    <tr>
+        <td>
+            
+        </td>
+    </tr>
+    {% for i in intrestobj %}
+    <tr>
+        <td>
+<a href='/signup-step2/{{i.id}}/'>
+	<!--<img src="/static_files/images/intrest/179264_458132557586761_1426314202_n.jpg/">-->
+<img style="width: 100px; height: 80px;"src='http://{{currentsite}}/{{i.image.name}}'/>
+</a>
+        </td>
+    </tr>
+    {%endfor %}
+</table>
+                                
+                                
+                                
+                                
+				</div>
+				<div class="clear"></div>
+				<div class="push"></div>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<div class="footer">
+			<div class="footerlinks">
+				<ul>
+					<li>@ Copyright:2013 Prashant Gaur</li>
+					<!--<li><a href="#">Link 2</a></li>-->
+					<!--<li><a href="#">Link 3</a></li>-->
+					<!--<li><a href="#">Link 4</a></li>-->
+					<!--<li><a href="#">Link 5</a></li>-->
+					<!--<li style="border:none;"><a href="#">Link 6</a></li>-->
+				</ul>
+				<div class="clear"></div>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,4 @@
+pil
+django 1.3
+python 2.6
+smtp server
