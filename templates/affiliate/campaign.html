@@ -1,0 +1,17 @@
+
+<form action="/campaign-college/" name="campaign" method="post">
+    {% csrf_token %}
+Campaign Name:<input type="text" name="name" value="" id="name"/><br/>
+<input type="submit" id='submit' value="Generate"/>
+</form>
+
+{% for i in links %}
+<table>
+    <tr>
+        <td>
+            {{i.link}}
+        </td>
+    </tr>
+</table>
+{%endfor%}
+

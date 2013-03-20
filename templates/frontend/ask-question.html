@@ -1,0 +1,77 @@
+<html>
+    <head>
+        <script src='/static_files/js/jquery.js' type="text/javascript"></script>
+<script src='/static_files/js/jquery.min.js' type="text/javascript"></script>
+<script src='/static_files/js/jquery-1.5.1.js' type="text/javascript"></script>
+<script type="text/javascript" src="/static_files/js/tiny_mce/tiny_mce.js"></script>
+
+<script src='/static_files/js/textareas.js' type="text/javascript"></script>
+        
+    </head>
+    <body>
+
+
+{{response}}
+<form action="/ask-question/" name="askquestion" method="POST">
+{% csrf_token %}
+<table>
+<tr>
+<td>
+Title
+</td>
+<td>
+
+<textarea cols=100 rows=2 name="title" id=title' ></textarea>
+</td>
+</tr>
+<tr>
+<td>
+Question:
+</td>
+<td>
+<textarea cols=100 rows=10 name="subject" id='subject' ></textarea>
+</td>
+</tr>
+<tr>
+    <td>
+        Intrest
+    </td>
+<td>
+<select multiple='multiple' name='intrest' id='intrest' size="5">
+{% for i in intrestobj %}
+
+<option value='{{i.fk_intrest}}'>{{i.fk_intrest.intrestfieldname }}</option>
+
+{%endfor%}
+</select>
+
+
+
+
+</td>
+    
+</tr>
+<tr>
+    <td>
+        Department:
+    </td>
+<td>
+    
+<select multiple='multiple' name='department' id='department' size="5">
+{% for i in departmentobj %}
+<option value='{{i.fk_department}}'>{{i.fk_department.departmentname}}</option>
+{%endfor%}
+</select>
+</td>
+    
+</tr>
+<tr>
+    <td>
+        <input type="submit" id="submit" value="Ask"/>
+    </td>
+</tr>
+</table>
+</form>         
+    </body>
+</html>
+

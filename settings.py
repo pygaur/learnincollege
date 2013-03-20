@@ -123,6 +123,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'frontend',
+    'affiliate',
     #'loginas',
     #'south',
     # Uncomment the next line to enable the admin:

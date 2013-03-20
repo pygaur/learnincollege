@@ -1,0 +1,33 @@
+{{response}}
+<form action="/edit-profile-college/" method="POST" name="editprofile">
+{% csrf_token %}
+
+Name*:<input type="text" name="name" id="name" value="{% if collegeobj.name %}{{collegeobj.name}} {% endif %}"/><br/>
+Place*:<input type="text" name="place" id="place" value="{% if collegeobj.place %}{{collegeobj.place}} {% endif %}"/><br/>
+Country*:<input type="text" name="country" id="country" value="{% if collegeobj.country %}{{collegeobj.country}} {% endif %}"/><br/>
+State*:<input type="text" name="state" id="state" value="{% if collegeobj.state %}{{collegeobj.state}} {% endif %}"/><br/>
+Zone*:<input type="text" name="zone" id="zone" value="{% if collegeobj.zone %}{{collegeobj.zone}} {% endif %}"/><br/>
+Zip Code*:<input type="text" name="zipcode" id="zipcode" value="{% if collegeobj.zipcode %}{{collegeobj.zipcode}} {% endif %}"/><br/>
+
+<!--Registration Date:<input type="text" name="zipcode" id="zipcode" value="{{collegeobj.registrationat}}" readonly=True/><br/>-->
+<!--Registration IP:<input type="text" name="zipcode" id="zipcode" value="{{collegeobj.ip}}" readonly=True/><br/>-->
+university*:<input type="text" name="university" id="university" value="{% if collegeobj.university %}{{collegeobj.university}} {% endif %}"/><br/>
+Email*:<input type="text" name="email" id="email" value="{% if collegeobj.email %}{{collegeobj.email}} {% endif %}"/><br/>
+Alternate Email:<input type="text" name="aemail" id="aemail" value="{% if collegeobj.aemail %}{{collegeobj.aemail}} {% endif %}"/><br/>
+Mobile*:<input type="text" name="mobile" id="mobile" value="{% if collegeobj.mobile %}{{collegeobj.mobile}} {% endif %}"/><br/>
+Phone:<input type="text" name="phone" id="phone" value="{% if collegeobj.phone %}{{collegeobj.phone}} {% endif %}"/><br/>
+<!--Code:<input type="text" name="code" id="code" value="{{collegeobj.code}}" readonly=True/><br/>-->
+<input type="submit" value="Edit" id="submit"/>
+</form>
+<hr/>
+
+
+
+<form action="/edit-profile-college-extra/" method="POST" name="editprofileextra">
+{% csrf_token %}    
+Strength:<input type="text" name="strength" id="strength" value="{% if collegeacademicobj.strength %}{{collegeacademicobj.strength}} {% endif %}"/><br/>
+director:<input type="text" name="director" id="director" value="{% if collegeacademicobj.director %}{{collegeacademicobj.director}} {% endif %}"/><br/>
+stablished:<input type="text" name="stablished" id="stablished" value="{% if collegeacademicobj.stablished %}{{collegeacademicobj.stablished}} {% endif %}"/><br/>
+<input type="submit" value="Edit" id="submit"/>
+    
+</form>

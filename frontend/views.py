@@ -6,6 +6,9 @@ from django.http import HttpRequest , HttpResponseRedirect
 from frontend.function import *
 from django.contrib.sites.models import get_current_site
 from django.db.models import Q
+from django.http import HttpResponse
+from django.utils import simplejson
+
 '''home page '''
 
 
@@ -29,8 +32,178 @@ using the given algorithm ('md5', 'sha1' or 'crypt').
     raise ValueError("Got unknown password algorithm type in password.")
 
 
-def home(request):
+def index(request):
     return render_to_response('frontend/index.html',locals(),context_instance=RequestContext(request))
+
+
+
+def seestudentlike(request , id):
+    likesobj = Likes.objects.filter(fk_question__id=id)
+    studentlist=[]
+    for i in likesobj:
+        studentlist.append(str(i.fk_student.username))
+    
+    studentlist=list(set(studentlist))
+    return render_to_response('frontend/see-likes-students.html',locals(),context_instance=RequestContext(request))
+
+
+
+
+def home(request , username):
+    sessionid = request.session.get('id') 
+    try:
+        obj = Student.objects.get(id=sessionid)
+    except:
+        return HttpResponseRedirect('/')
+    
+    questionsobj = Questions.objects.all()
+    totalhitlist=[]
+    totallikelist=[]
+        
+    for i in questionsobj:
+        totalhits=Hits.objects.filter(fk_question=i).count()
+        totalhitlist.append(totalhits)
+    
+    for i in questionsobj:
+        totallikes=Likes.objects.filter(fk_question=i).count()
+        totallikelist.append(totallikes)
+    
+    
+    
+    questions = zip(questionsobj, totalhitlist ,totallikelist )
+    return render_to_response('frontend/home.html',locals(),context_instance=RequestContext(request))
+
+
+
+def submitlike(request ,id,student):
+    message = {'result':''}
+    if request.is_ajax():
+        try:
+            obj=Student.objects.get(username=student)
+            questionobj = Questions.objects.get(id=id)
+            likes=Likes.objects.get_or_create(fk_student=obj,fk_question=questionobj)
+            message['result'] = 'True'
+        except:
+            message['result'] = 'False'
+        
+        json = simplejson.dumps(message)
+        return HttpResponse(json, mimetype='application/json')    
+    
+
+
+
+def submitunlike(request ,id,student):
+    message = {'result':''}
+    if request.is_ajax():
+        try:
+            print "Hiiiii"
+            obj=Student.objects.get(username=student)
+            print obj
+            
+            questionobj = Questions.objects.get(id=id)
+            
+            likes=Likes.objects.get(fk_student=obj,fk_question=questionobj)
+            print likes
+            likes.delete()
+            message['result'] = 'True'
+        except:
+            message['result'] = 'False'
+        
+        json = simplejson.dumps(message)
+        return HttpResponse(json, mimetype='application/json')    
+    
+
+
+
+def questiondetails(request ,id):
+    sessionid = request.session.get('id') 
+    try:
+        obj = Student.objects.get(id=sessionid)
+    except:
+        return HttpResponseRedirect('/')
+    questionobj = Questions.objects.get(id=id)
+    hitobj = Hits.objects.create(fk_question=questionobj,fk_student=obj)
+    totalhits=Hits.objects.filter(fk_question=questionobj).count()
+    totallikes=Likes.objects.filter(fk_question=questionobj).count()
+    
+    return render_to_response('frontend/question-details.html',locals(),context_instance=RequestContext(request))
+
+
+
+def ask_question(request):
+    sessionid = request.session.get('id') 
+    try:
+        obj = Student.objects.get(id=sessionid)
+    except:
+        return HttpResponseRedirect('/')
+    
+    if request.method == "GET":
+        intrestobj = Intrestinfo.objects.filter(fk_student=obj)
+        departmentobj = Departmentinfo.objects.filter(fk_student=obj)
+        return render_to_response('frontend/ask-question.html',locals(),context_instance=RequestContext(request))
+    
+    if request.method == "POST":
+        title = request.POST.get('title')
+        subject = request.POST.get('subject')
+        intrest = request.POST.getlist('intrest')
+        department = request.POST.getlist('department')
+        if title == "":
+            response ="Please Enter Title"        
+            intrestobj = Intrestinfo.objects.filter(fk_student=obj)
+            departmentobj = Departmentinfo.objects.filter(fk_student=obj)
+            return render_to_response('frontend/ask-question.html',locals(),context_instance=RequestContext(request))
+        if subject == "":
+            response ="Please Enter Subject."        
+            intrestobj = Intrestinfo.objects.filter(fk_student=obj)
+            departmentobj = Departmentinfo.objects.filter(fk_student=obj)
+            return render_to_response('frontend/ask-question.html',locals(),context_instance=RequestContext(request))
+        if not intrest:
+            response ="Please Enter Intrest."        
+            intrestobj = Intrestinfo.objects.filter(fk_student=obj)
+            departmentobj = Departmentinfo.objects.filter(fk_student=obj)
+            return render_to_response('frontend/ask-question.html',locals(),context_instance=RequestContext(request))
+        if not department:
+            response ="Please Enter Department."        
+            intrestobj = Intrestinfo.objects.filter(fk_student=obj)
+            departmentobj = Departmentinfo.objects.filter(fk_student=obj)
+            return render_to_response('frontend/ask-question.html',locals(),context_instance=RequestContext(request))
+        
+        questionobj = Questions.objects.create(title=title,subject=subject,fk_student=obj)
+        for i in intrest:
+            intrestobj = Intrest.objects.get(intrestfieldname=str(i))
+            Question_Intrest.objects.create(questions=questionobj,intrest=intrestobj)
+        
+        for i in department:
+            departmentobj = Department.objects.get(departmentname=str(i))
+            Question_Department.objects.create(questions=questionobj,department=departmentobj)
+        
+        
+        
+        return HttpResponseRedirect('/home/'+obj.username)
+
+
+
+
+def signin(request):
+    if request.method == "GET":
+        return HttpResponseRedirect('/')
+    if request.method  == "POST":
+        username=request.POST.get('id_username')
+        password=request.POST.get('id_password')
+        if username == "":
+            return HttpResponse("User Name can not be empty")
+        if password == "":
+            return HttpResponse("Password can not be empty")
+        try:
+            obj=Student.objects.get(username=username)
+        except:
+            return HttpResponse("User does not exist.")
+        if obj.password != password:
+            return HttpResponse("Please Enter Corrent Password.")
+        request.session['id'] = str(obj.id)
+        return HttpResponseRedirect("/home/"+obj.username)
+    
+        
 
 def signupstep1(request):
     if request.method == "POST":
@@ -57,10 +230,8 @@ def signupstep2(request):
         return HttpResponse('404 ERROR')
     if request.method == "GET":
         age = obj.age
-        print obj ,age
         intrestinfoobj = Intrestinfo.objects.filter(fk_student=obj)
         
-        print intrestinfoobj ,'prashant'
         intrestinfolist = []
         for i in intrestinfoobj:
             intrestinfolist.append(int(str(i.fk_intrest.id)))
@@ -68,7 +239,6 @@ def signupstep2(request):
         for j in  intrestinfolist:
             intrestobj = intrestobj.exclude(id=j)
         intrestobj = intrestobj.filter(Q(minimumage__lte=age) and Q(maximumage__gte=age))
-        print intrestobj ,'ssssssssssss'
         currentsite = str(get_current_site(request).domain)
         return render_to_response('frontend/signup-step2.html',locals(),context_instance=RequestContext(request))
     
@@ -103,19 +273,20 @@ def signupstep32(request,departmentid):
     departmentobj = Department.objects.get(id=departmentid)
     Departmentinfo.objects.get_or_create(fk_student=obj,fk_department=departmentobj)
     return HttpResponseRedirect(reverse('welcome',args=(username,)))
-import json   
+
 
 def checkuseravailability(request,username):
-    respose = {'result':''}
+    message = {'result':''}
     if request.is_ajax():
         try:
             obj = Student.objects.get(username=username)
-            response['result'] = 'True'
+            message['result'] = 'True'
         except:
-            response['result'] = 'False'
-        data=json.dumps(response)
-        return HttpResponse(data ,mimetype="application/json")
-
+            message['result'] = 'False'
+        
+        json = simplejson.dumps(message)
+        return HttpResponse(json, mimetype='application/json')    
+    
     
     
     

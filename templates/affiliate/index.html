@@ -1,0 +1,107 @@
+Register your college:
+<p style="background-color: red;">{{response}}</p>
+<form action='/signup-college/' name="collegesignup" method="POST">
+    {% csrf_token %}
+<table>
+<tr>
+<td>
+College Name
+</td>
+<td>
+<input type="text" name="name" id='name' value="" />
+</td>
+
+</tr>
+<tr>
+<td>
+Password      </td>
+<td>
+<input type="text" name="password" id='password' value="" />
+</td>
+
+</tr>
+<tr>
+<td>Repeat Password
+</td>
+<td>
+<input type="text" name="password1" id='password1' value="" />
+</td>
+
+</tr>
+
+
+<tr>
+<td>
+State
+</td>
+<td>
+<input type="text" name="state" id='state' value="" />
+</td>
+
+</tr>
+
+<tr>
+<td>
+Country
+</td>
+<td>
+<input type="text" name="country" id='country' value="" />
+</td>
+</tr>
+<tr>
+<td>
+email
+</td>
+<td>
+<input type="text" name="email" id='email' value="" />
+</td>
+</tr>
+<tr>
+<td>
+mobile
+</td>
+<td>
+<input type="text" name="mobile" id='mobile' value="" />
+</td>
+</tr>
+<tr>
+<td>
+<input type="submit" value="Register" id='submit'/></td><td>
+</td>
+</tr>
+</table>
+</form>
+
+
+Login system for colleges:
+<form action="/signin-college/" name='signincollege' method="POST">
+    {% csrf_token %}
+    <table>
+        <tr>
+            <td>
+                Code :
+            </td>
+            <td>
+                <input type="text" name="code" value="" id="code"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+        Password
+            </td>
+            <td>
+                <input type="password" name="password" value="" id="password"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" id="submit" value="Login"/>
+            </td>
+     <td>
+        
+    <a href='/reset-password-college/'>Forgot Password</a>
+ </td>
+        </tr>
+    </table>
+    
+</form>

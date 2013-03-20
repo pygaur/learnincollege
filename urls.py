@@ -14,6 +14,7 @@ static_files = os.path.join(
 urlpatterns = patterns('',
     
     url(r'^', include('frontend.urls')),
+    url(r'^', include('affiliate.urls')),
     
     # Examples:
     # url(r'^$', 'collegeportal.views.home', name='home'),

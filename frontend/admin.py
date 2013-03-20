@@ -19,4 +19,8 @@ admin.site.register(Departmentinfo , DepartmentinfoAdmin)
 class DepartmentAdmin(admin.ModelAdmin):
     list_display= ['departmentname']
 admin.site.register(Department , DepartmentAdmin)
+
+class QuestionsAdmin(admin.ModelAdmin):
+    list_display= ['title']
+admin.site.register(Questions , QuestionsAdmin)
     

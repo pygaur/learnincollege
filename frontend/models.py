@@ -1,20 +1,14 @@
 from django.db import models
-
+from affiliate.models import *
 # Create your models here.
 
-class College(models.Model):
-    collegename = models.TextField()
-    place = models.TextField(max_length = 30)
-    country=models.CharField(max_length=30)
-    state=models.CharField(max_length=30)
-    zone=models.CharField(max_length=30)
-    zipcode=models.IntegerField()
-    new = models.IntegerField()
 
     
 class Department(models.Model):
     departmentname = models.CharField(max_length=30,null=True,blank=True)       
     image = models.ImageField(upload_to='static_files/images/department')
+    def __str__(self):
+        return str(self.departmentname)
     
 class Intrest(models.Model):
     intrestfieldname = models.CharField(max_length=30)
@@ -32,12 +26,16 @@ class Student(models.Model):
     dob = models.DateField(null=True,blank=True,verbose_name = "Date of Birth")
     age=models.IntegerField(null=True,blank=True)
     email = models.EmailField(null=True , blank=True)
+    aemail = models.EmailField(null=True , blank=True)
     firstname =models.CharField(max_length = 30,blank=True,verbose_name='First Name',null=True)
     middlename =models.CharField(max_length = 30,blank=True,verbose_name='Middle Name',null=True)
     lastname =models.CharField(max_length = 30,blank=True,verbose_name='Last Name',null=True)
     fk_college = models.ForeignKey(College,null=True)
+    fk_camaign = models.ForeignKey(Campaign,null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     ip = models.IPAddressField(null=True,blank=True)
+    phone=models.CharField(max_length=20,null=True,blank=True)
+    mobile=models.CharField(max_length=20,null=True,blank=True)
     def __str__(self):
         return str(self.username)
     
@@ -53,21 +51,50 @@ class Departmentinfo(models.Model):
     fk_student = models.ForeignKey(Student)
     fk_department =models.ForeignKey(Department)
     
+
+
+
+
     
 class Questions(models.Model):
     title = models.TextField()
     subject =models.TextField()
-    hits = models.IntegerField()
-    comment =models.IntegerField()
-    likes =models.IntegerField()
-    timestamp = models.DateTimeField()
+    timestamp = models.DateTimeField(auto_now_add=True)
     fk_student =models.ForeignKey(Student)
-    fk_intrest =models.ForeignKey(Intrest)
-    fk_department = models.ForeignKey(Department,null=True)
+    fk_intrest =models.ManyToManyField(Intrest,null=True,through='Question_Intrest')
+    fk_department = models.ManyToManyField(Department,null=True,through='Question_Department')
+    
+class Hits(models.Model):
+    fk_student=models.ForeignKey(Student)
+    timestamp=models.DateTimeField(auto_now_add=True)
+    fk_question=models.ForeignKey(Questions)
+
+class Likes(models.Model):
+    fk_student=models.ForeignKey(Student)
+    timestamp=models.DateTimeField(auto_now_add=True)
+    fk_question=models.ForeignKey(Questions)
+    def __str__(self):
+        return str(self.fk_student)
     
     
+class Question_Intrest(models.Model):
+    questions=models.ForeignKey(Questions)
+    intrest=models.ForeignKey(Intrest)
+    
+class Question_Department(models.Model):
+    questions=models.ForeignKey(Questions)
+    department=models.ForeignKey(Department)
     
 class Answers(models.Model):
     fk_questions = models.ForeignKey(Questions)
-    likes =models.IntegerField()
+    answer =models.TextField()
+    likes =models.IntegerField(default=0)
+    
+class Comment(models.Model):
+    fk_answers = models.ForeignKey(Answers)
+    comment =models.TextField()
+    likes=models.IntegerField(default=0)
+    
+    
+    
     
