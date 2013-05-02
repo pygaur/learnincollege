@@ -278,7 +278,11 @@ def signupstep1(request):
         password1 = str(request.POST.get('cpassword'))
         Email = request.POST.get('email')
         Dob = request.POST.get('dob')
+        
+        
+        Dob=jstopython(str(Dob))
         age=ageverify(Dob)
+        print age         
         password1=enc_password(password1)
         obj = Student.objects.create(age=age,username=Name,password=password1,email=Email,dob=Dob,ip=request.META['REMOTE_ADDR'])
         username =str(obj.username)

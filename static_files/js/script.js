@@ -6,10 +6,11 @@ var username = $("#username").val();
         result = data.result
         if (result == "True"){
          	$('label[for="fromdate"]').show();
-
+		$('#signupsubmit').attr('disabled','disabled');
         }
         if (result == "False"){
             	$('label[for="fromdate"]').hide();
+		$("#signupsubmit").removeAttr("disabled");
 
         }
         

@@ -12,19 +12,26 @@ from datetime import datetime ,  date
 
 
 def ageverify(Birthday):
-    year = str(Birthday.split('-')[0])
-    month = str(Birthday.split('-')[1])
-    date= str(Birthday.split('-')[2])
-    a = int(year)
-    b =int(month)
-    c= int(date)
     tyear = datetime.now().year
     tmonth = datetime.now().month
     tdate = datetime.now().date
     days = 365.25
     
     from datetime import date
-    bir = date(a,b,c)
-    age = int((date.today() - bir).days/days)
+    age = int((date.today() - Birthday).days/days)
     return age
 
+def jstopython(Dob):
+    print Dob
+    month = str(Dob.split('/')[0])
+    date = str(Dob.split('/')[1])
+    year= str(Dob.split('/')[2])
+    a = int(year)
+    b =int(month)
+    c= int(date)
+    from datetime import date
+    Dob= date(a,b,c)
+    return Dob
+    
+    
+    

@@ -35,6 +35,34 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 
 
 
+<link rel="stylesheet" href="/static_files/js/nivo-slider/themes/default/default.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/static_files/js/nivo-slider/themes/light/light.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/static_files/js/nivo-slider/themes/dark/dark.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/static_files/js/nivo-slider/themes/bar/bar.css" type="text/css" media="screen" />
+
+<link rel="stylesheet" href="/static_files/js/nivo-slider/nivo-slider.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/static_files/js/nivo-slider/demo/style.css" type="text/css" media="screen" />
+<script type="text/javascript" src="/static_files/js/nivo-slider/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/static_files/js/nivo-slider/jquery.nivo.slider.js"></script>
+
+<script type="text/javascript">
+$(window).load(function() {
+$('#slider').nivoSlider();
+});
+</script>
+
+
+
+<script type="text/javascript" src="/static_files/js/datepicker/glDatePicker.min.js"></script>
+<link href="/static_files/js/datepicker/styles/glDatePicker.default.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+$(window).load(function()
+{
+$('#dob').glDatePicker();
+});
+</script>
+
+
 
 </head>
 <body>
@@ -69,14 +97,18 @@ UserName:
 <tr><td>Password:</td>
 <td><input type="password" placeholder="* Password" required="" name="id_password" value="" id='id_password'/></td>
 <tr><td><input type="submit" value="Login" id="submit"/>
-</td></tr></tbody>
+</td></tr>
+</tbody>
 </table>
-
 </form>
+
 </div>                
 
 
 </div>
+
+
+
 <div class="topnav">
 <ul>
 
@@ -85,16 +117,20 @@ UserName:
 <li><a href="/contactme.html/">Contact Us</a></li>
 <li style="border:none;"><a href="/aboutus.html/">About Us</a></li>
 </ul>
-<div class="clear"></div>
+
+
 </div>
+<div class="clear"></div>
+
 <div class="flash">
 
+<div class="flashleft">
 <form action='/signup-step1/' name='signup' method="POST" >
 {% csrf_token %}
 <table width='260' border="0" cellpadding="0" cellspacing="0" align="left">
 <tr>
 <td width='215'>
-<div class=='first'>
+
 <input type='text' placeholder="* User Name" name='username' id='username' value='' required=""/></div></td>
 <label for="fromdate" style="display:none">User Name is already registered.</label>
 </tr>   
@@ -111,22 +147,75 @@ UserName:
 <td width='215'><input type='text' placeholder="* Date of Birth" name='dob' id='dob' value='' required=""/></td>
 </tr>   
 
-<tr><td><input type='submit' value='Submit'/></td></tr>
+<tr><td><input type='submit' name='signupsubmit' id='signupsubmit' value='Submit'/></td></tr>
 </table>
 </form>   
-
-
-
-
-
 </div>
+</div>
+
+
+<div class="clear"></div>
+
+
 
 <div class="mainbody">
 <div class="left">
+You can also connect with us without being part of any college.
+If you are registered student of any college ,just you can select your college
+in  profile .
+<br/>
+If you are part of any college then you can see 
+<a href="Noticeboard">NoticeBoard</a>,<a href="/magaziene/">
+Magaziene</a> of your college .
+
+
 </div>
 <div class="center">
+
+<div id="wrapper">
+<div class="slider-wrapper theme-default">
+
+<div id="slider" class="nivoSlider">
+<img src="/static_files/images/templates/toystory.jpg" data-thumb="/static_files/js/nivo-slider/demo/images/toystory.jpg" alt="" />
+
+<img src="/static_files/images/templates/walle.jpg" data-thumb="/static_files/js/nivo-slider/demo/images/walle.jpg" alt="" data-transition="slideInLeft" />
+<img src="/static_files/images/templates/nemo.jpg" data-thumb="/static_files/js/nivo-slider/demo/images/nemo.jpg" alt="" title="#htmlcaption" />
+</div>
+<div id="htmlcaption" class="nivo-html-caption">
+</div>
+</div>
+</div>
+
+
+
+
+
 </div>
 <div class="right">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
 
 </div>

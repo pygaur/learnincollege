@@ -29,7 +29,7 @@ img{
 	min-height:100%;
 	_height:auto !important;
 	height:100%;
-	background-color: orange;
+	/*background-color: orange;*/
 }
 
 .header{
@@ -82,6 +82,12 @@ img{
 
 .flash{
 	
+	height: auto;
+	/*background-color:green;*/
+}
+
+.flashleft{
+	float: left;
 	height: auto;
 	
 	/*background-color:green;*/
@@ -136,3 +142,14 @@ img{
 	float:left;
 	/*border-right:1px solid;*/
 }
+
+
+
+
+
+
+
+
+
+
+
