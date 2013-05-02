@@ -1,0 +1,29 @@
+
+    <script src="/static_files/js/jquery.min.js"></script>
+
+<script type="text/javascript">
+     $(document).ready(function() {
+     var value = "{{ string }}"
+     
+     if (value == 'done'){
+        alert("Answer is added successfully")
+        window.opener.location.reload();
+        window.close()
+     }
+     });
+    
+    
+</script>    
+
+
+
+
+{{response}}
+
+
+<form action="/submit_answer/{{id}}/" name='answersubmit' method="POST">
+    {% csrf_token %}
+Answer:
+<textarea cols="30" rows="10" name="answer" id="answer"></textarea>
+<input type="submit" value='submit'/>    
+</form>

@@ -29,14 +29,14 @@ img{
 	min-height:100%;
 	_height:auto !important;
 	height:100%;
+	background-color: orange;
 }
 
 .header{
-	height:80px;
+	height:90px;
 }
 .header1{
-	height:80px;
-	background-color:black;
+	
         float: left;
         width:330px;
 }
@@ -44,14 +44,14 @@ img{
     float: left;
     width: 200px;
     
-	height:80px;
-	background-color:white;
+	
+	/*background-color:white;*/
 }
 .header3{
     float: left;
     width: 450px;
-	height:80px;
-	background-color:#66FFCC;
+	
+	/*background-color:green;*/
 }
 
 
@@ -60,6 +60,7 @@ img{
 
 
 .topnav{
+	/*background-color:green;*/
 	height:30px;
 }
 .topnav ul{
@@ -69,7 +70,7 @@ img{
 .topnav ul li{
 	list-style-type:none;
 	float:left;
-	padding:0 10px 0 10px;	
+	padding:0 10px 0 10px;		
 	border-right:1px solid;
 }
 .topnav li a{
@@ -79,34 +80,43 @@ img{
 
 
 
-
 .flash{
-	height:250px;
-	background-color:#336699;
+	
+	height: auto;
+	
+	/*background-color:green;*/
 }
+
 .left, .center, .right{
+	/*background-color:green;*/
+	
 	float:left;
 	overflow:hidden;
 }
 .left{
-	background-color:#CCCCCC;
-	height:500px;
-	width:100px;
+	/*background-color:green;*/
+
+	height:280px;
+	width:200px;
 }
 .center{
-	background-color:#999999;
-	height:500px;
-	width:180px;
+	/*background-color:green;*/
+
+	height:280px;
+	width:500px;
 }
 .right{
-	height:500px;
-	width:700px;
+	/*background-color:red;*/
+
+	height:280px;
+	width:280px;
 }
-.push{
-	height:50px;
-}
+
+/*.push{*/
+/*	height:50px;*/
+/*}*/
 .footer{
-	height:50px;
+	height:30px;
 	background-color:#9fcc00;
 	bottom:0;
 	margin:0 auto;
@@ -121,7 +131,7 @@ img{
 }
 .footerlinks ul li{
 	margin:0;
-	padding:20px 10px 0 10px;
+	padding:0px 10px 0 10px;
 	/*list-style-type:none;*/
 	float:left;
 	/*border-right:1px solid;*/

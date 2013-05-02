@@ -89,6 +89,8 @@ class Answers(models.Model):
     fk_questions = models.ForeignKey(Questions)
     answer =models.TextField()
     likes =models.IntegerField(default=0)
+    timestamp=models.DateTimeField(auto_now_add=True)
+    
     
 class Comment(models.Model):
     fk_answers = models.ForeignKey(Answers)

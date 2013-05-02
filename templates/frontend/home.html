@@ -9,6 +9,13 @@
 
 
 
+<script type="text/javascript">
+function popup(thisUrl,thisWidth,thisHeight,thisTop,thisLeft) {
+   optionString = ('width=' + thisWidth + ',height=' + thisHeight + ',top=' + thisTop + ',left=' + thisLeft + ',toolbar=no, location=no, directories=no,status=no,menubar=no,resizable=yes,scrollbars=yes');
+   mainWin = window.open(thisUrl,"popup_win",optionString);
+   mainWin.opener = self;
+ }
+</script>
 
 
 
@@ -70,28 +77,29 @@
 
     
 
-
-  
         
-        
-        
-
+<h1>
 <a href="/ask-question/">Ask A question</a>
-<hr/>
+<a href="/profile/{{obj.username}}">Profile</a>
+</h1>
+
 <table>
-    {% for i ,j ,k  in questions %}
+    {% for i ,j ,k ,l,m in questions %}
     <tr>
         <td>
     <a href="/question/{{i.id}}">{{i.title}} </a> {{j}} rank </td>
-    
     </tr>
  <tr><td>
  
  
 <input type="image" src="/static_files/images/intrest/like.png" style="height: 30px; width: 70px;" id="likes{{i.id}}" />
 <input type="image" src="/static_files/images/intrest/unlike.jpeg" style="height: 30px; width: 70px;" id="unlikes{{i.id}}" />
-
-
+<br/>
+{{m}} Answers<br/>
+<input onclick="javascript: popup('/submit_answer/{{i.id}}/', 500, 350, 0, 0);" onmouseover="window.status='Click to give answer.'; return true;" onmouseout="window.status=''; return true;" type="submit" value="Answer"/>
+<br/>
+Latest Answer:<br/>
+{{l}}
 
 
 <p>
@@ -108,7 +116,8 @@
       
      
       <div id="pop-up">
-Hiiiiiiiiiiiii     
+{% include "frontend/see-likes-students.html" %}
+      
     </div>
 
     

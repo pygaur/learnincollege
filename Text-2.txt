@@ -1,0 +1,21 @@
+<table>
+    <tr>
+    </tr>
+
+    <tr>
+        <td>
+            
+        </td>
+    </tr>
+
+    {% for i in intrestobj %}
+    <tr>
+        <td>
+<a href='/signup-step2/{{i.id}}/'>
+
+<img style="width: 100px; height: 80px;"src='http://{{currentsite}}/{{i.image.name}}'/>
+</a>
+        </td>
+    </tr>
+    {%endfor %}
+</table>

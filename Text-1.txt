@@ -2,3 +2,8 @@ pil
 django 1.3
 python 2.6
 smtp server
+
+
+<!--<li><a href="noticeboard.html/">Notice Board</a></li>-->
+<!--<li><a href="/magaziene.html/">Magaziene</a></li>-->
+<!--<li><a href="/sociallife.html/">Social Life</a></li>-->

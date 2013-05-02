@@ -1,13 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-  <meta name="robots" content="prashant gaur,learnincollege.com, study ,collleges />
-  <meta name="keywords" content="leading college learning website." />
-  
-  <meta name="author" content="prashant gaur" />
-  <meta name="description" content="learning website" />
-        
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="robots" content="prashant gaur,learnincollege.com, study ,collleges />
+<meta name="keywords" content="leading college learning website." />
+
+<meta name="author" content="prashant gaur" />
+<meta name="description" content="learning website" />
+
 
 
 
@@ -41,60 +41,53 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 
 <div class="maincon">
 <div class="header">
+
+
 <div class="header1">
 Learnincollege.com
+
 </div>
+
 <div class="header2">
 Learnincollege.com
 </div>
+
 <div class="header3">
+
+
 <form action="/student-signin/" method="post" name='studentsignin' > 
 {% csrf_token %}
 <table>
+<tbody>
 <tr>
 <td>
 UserName:
 </td>
-<td>
-<input type="text" name="id_username" value="" id='id_username'/>
+<td> 
+<input placeholder="* User Name" required="" type="text" name="id_username" value="" id='id_username'/>
 </td></tr>
 <tr><td>Password:</td>
-<td><input type="text" name="id_password" value="" id='id_password'/></td>
-<tr><td><input type="submit" value="Login" id="submit"/></td></tr>
-
-    
+<td><input type="password" placeholder="* Password" required="" name="id_password" value="" id='id_password'/></td>
+<tr><td><input type="submit" value="Login" id="submit"/>
+</td></tr></tbody>
 </table>
+
 </form>
-
-
 </div>                
+
 
 </div>
 <div class="topnav">
 <ul>
-    
-<li><a href="/jsoncheck/">Home</a></li>
-    
+
+
 <li><a href="/">Home</a></li>
-<li><a href="noticeboard.html/">Notice Board</a></li>
-<li><a href="/magaziene.html/">Magaziene</a></li>
-<li><a href="/sociallife.html/">Social Life</a></li>
 <li><a href="/contactme.html/">Contact Us</a></li>
 <li style="border:none;"><a href="/aboutus.html/">About Us</a></li>
 </ul>
 <div class="clear"></div>
 </div>
 <div class="flash">
-
-</div>
-<div class="mainbody">
-<div class="left">
-
-</div>
-<div class="center">
-
-</div>
-<div class="right">
 
 <form action='/signup-step1/' name='signup' method="POST" >
 {% csrf_token %}
@@ -127,20 +120,27 @@ UserName:
 
 
 </div>
+
+<div class="mainbody">
+<div class="left">
+</div>
+<div class="center">
+</div>
+<div class="right">
+</div>
+
+</div>
+
 <div class="clear"></div>
-<div class="push"></div>
-</div>
-</div>
+
+<!--<div class="push"></div>-->
+
+
 <div class="clear"></div>
 <div class="footer">
 <div class="footerlinks">
 <ul>
 <li>@ Copyright:2013 Prashant Gaur</li>|<a href="/affiliate/">Affiliate</a>
-<!--<li><a href="#">Link 2</a></li>-->
-<!--<li><a href="#">Link 3</a></li>-->
-<!--<li><a href="#">Link 4</a></li>-->
-<!--<li><a href="#">Link 5</a></li>-->
-<!--<li style="border:none;"><a href="#">Link 6</a></li>-->
 </ul>
 <div class="clear"></div>
 </div>

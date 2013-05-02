@@ -24,6 +24,7 @@ urlpatterns = patterns('',
     url(r'^submitunlikequestion/(?P<id>\w+)/(?P<student>\w+)/$', 'frontend.views.submitunlike', name='submitunlike'),
     
     url(r'^seeelikestudents/(?P<id>\w+)/$', 'frontend.views.seestudentlike', name='seestudent-like'),
+    url(r'^submit_answer/(?P<id>\w+)/$', 'frontend.views.submitanswer', name='submitanswer'),
     
     
     
@@ -33,6 +34,8 @@ urlpatterns = patterns('',
     
     
     url(r'^signup-step3/(?P<departmentid>\w+)/$', 'frontend.views.signupstep32', name='signupstep32'),
+    url(r'^profile/(?P<username>\w+)/$', 'frontend.views.profile', name='profile'),
+    url(r'^logout/$', 'frontend.views.logout', name='logout'),
     
     
     # url(r'^collegeportal/', include('collegeportal.foo.urls')),

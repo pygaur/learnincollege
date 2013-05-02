@@ -8,31 +8,51 @@ from django.contrib.sites.models import get_current_site
 from django.db.models import Q
 from django.http import HttpResponse
 from django.utils import simplejson
+from django.contrib.auth.models import get_hexdigest
 
 '''home page '''
 
 
-def get_hexdigest(algorithm, salt, raw_password):
-    """
-Returns a string of the hexdigest of the given plaintext password and salt
-using the given algorithm ('md5', 'sha1' or 'crypt').
-"""
-    raw_password, salt = smart_str(raw_password), smart_str(salt)
-    if algorithm == 'crypt':
-        try:
-            import crypt
-        except ImportError:
-            raise ValueError('"crypt" password algorithm not supported in this environment')
-        return crypt.crypt(raw_password, salt)
+#def get_hexdigest(algorithm, salt, raw_password):
+#    """
+#Returns a string of the hexdigest of the given plaintext password and salt
+#using the given algorithm ('md5', 'sha1' or 'crypt').
+#"""
+#    raw_password, salt = smart_str(raw_password), smart_str(salt)
+#    if algorithm == 'crypt':
+#        try:
+#            import crypt
+#        except ImportError:
+#            raise ValueError('"crypt" password algorithm not supported in this environment')
+#        return crypt.crypt(raw_password, salt)
+#
+#    if algorithm == 'md5':
+#        return md5_constructor(salt + raw_password).hexdigest()
+#    elif algorithm == 'sha1':
+#        return sha_constructor(salt + raw_password).hexdigest()
+#    raise ValueError("Got unknown password algorithm type in password.")
 
-    if algorithm == 'md5':
-        return md5_constructor(salt + raw_password).hexdigest()
-    elif algorithm == 'sha1':
-        return sha_constructor(salt + raw_password).hexdigest()
-    raise ValueError("Got unknown password algorithm type in password.")
+
+def enc_password(password):
+    import random
+    algo = 'sha1'
+    salt = get_hexdigest(algo, str(random.random()), str(random.random()))[:5]
+    hsh = get_hexdigest(algo, salt, password)
+    password = '%s$%s$%s' % (algo, salt, hsh)
+    return password
 
 
 def index(request):
+    
+    sessionid = request.session.get('id') 
+    try:
+        obj = Student.objects.get(id=sessionid)
+        return HttpResponseRedirect("/home/"+obj.username)
+    except:
+        pass
+ 
+           
+ 
     return render_to_response('frontend/index.html',locals(),context_instance=RequestContext(request))
 
 
@@ -59,7 +79,8 @@ def home(request , username):
     questionsobj = Questions.objects.all()
     totalhitlist=[]
     totallikelist=[]
-        
+    answerscount = []
+    latestanswerlist=[]
     for i in questionsobj:
         totalhits=Hits.objects.filter(fk_question=i).count()
         totalhitlist.append(totalhits)
@@ -68,9 +89,21 @@ def home(request , username):
         totallikes=Likes.objects.filter(fk_question=i).count()
         totallikelist.append(totallikes)
     
+    for i in questionsobj:
+        answers = Answers.objects.filter(fk_questions=i).count()
+        answerscount.append(answers)
+        latestanswer=Answers.objects.filter(fk_questions=i).order_by('-id')[:1]
+        if not latestanswer:
+            latestanswerlist.append("N.A.")
+        else:
+           for j in latestanswer:
+                latestanswerlist.append(j.answer)
+            
+            
+    print     
+    questions = zip(questionsobj, totalhitlist ,totallikelist,latestanswerlist ,answerscount)
     
     
-    questions = zip(questionsobj, totalhitlist ,totallikelist )
     return render_to_response('frontend/home.html',locals(),context_instance=RequestContext(request))
 
 
@@ -138,8 +171,11 @@ def ask_question(request):
         return HttpResponseRedirect('/')
     
     if request.method == "GET":
-        intrestobj = Intrestinfo.objects.filter(fk_student=obj)
-        departmentobj = Departmentinfo.objects.filter(fk_student=obj)
+        #intrestobj = Intrestinfo.objects.filter(fk_student=obj)
+        intrestobj = Intrestinfo.objects.all()
+        
+        #departmentobj = Departmentinfo.objects.filter(fk_student=obj)
+        departmentobj = Departmentinfo.objects.all()
         return render_to_response('frontend/ask-question.html',locals(),context_instance=RequestContext(request))
     
     if request.method == "POST":
@@ -184,6 +220,29 @@ def ask_question(request):
 
 
 
+def submitanswer(request,id):
+    if request.method == 'GET':
+        return render_to_response('frontend/submit-answer.html',locals(),context_instance=RequestContext(request))
+    
+    if request.method == 'POST':
+        answer=request.POST.get('answer')
+        if answer == '':
+            response = "Please Enter Message."
+            return render_to_response('frontend/submit-answer.html',locals(),context_instance=RequestContext(request))
+        
+        questionobj=Questions.objects.get(id=int(id))
+        Answers.objects.create(fk_questions=questionobj,answer=answer)
+        
+        
+        string='done'        
+        return render_to_response('frontend/submit-answer.html',locals(),context_instance=RequestContext(request))
+
+
+
+
+
+
+
 def signin(request):
     if request.method == "GET":
         return HttpResponseRedirect('/')
@@ -198,11 +257,18 @@ def signin(request):
             obj=Student.objects.get(username=username)
         except:
             return HttpResponse("User does not exist.")
-        if obj.password != password:
-            return HttpResponse("Please Enter Corrent Password.")
-        request.session['id'] = str(obj.id)
-        return HttpResponseRedirect("/home/"+obj.username)
-    
+        
+        dbpassword = obj.password
+        '''hash function password hash function generation'''
+        a = dbpassword.split('$')
+        hashdb = str(a[2])
+        salt = str(a[1])
+        usrhash = get_hexdigest(a[0],a[1],password)
+        if hashdb == usrhash:
+            request.session['id'] = str(obj.id)
+            return HttpResponseRedirect("/home/"+obj.username)
+        else:
+            return HttpResponse("Please enter correct password.")
         
 
 def signupstep1(request):
@@ -213,7 +279,8 @@ def signupstep1(request):
         Email = request.POST.get('email')
         Dob = request.POST.get('dob')
         age=ageverify(Dob)
-        obj = Student.objects.create(age=age,username=Name,password=password1,email=Email,dob=Dob)
+        password1=enc_password(password1)
+        obj = Student.objects.create(age=age,username=Name,password=password1,email=Email,dob=Dob,ip=request.META['REMOTE_ADDR'])
         username =str(obj.username)
         request.session['id'] = str(obj.id)
         return HttpResponseRedirect(reverse('signupstep2'))
@@ -240,6 +307,7 @@ def signupstep2(request):
             intrestobj = intrestobj.exclude(id=j)
         intrestobj = intrestobj.filter(Q(minimumage__lte=age) and Q(maximumage__gte=age))
         currentsite = str(get_current_site(request).domain)
+        
         return render_to_response('frontend/signup-step2.html',locals(),context_instance=RequestContext(request))
     
 def signupstep22(request,intrestid):
@@ -272,8 +340,29 @@ def signupstep32(request,departmentid):
         return HttpResponse('404 ERROR')
     departmentobj = Department.objects.get(id=departmentid)
     Departmentinfo.objects.get_or_create(fk_student=obj,fk_department=departmentobj)
-    return HttpResponseRedirect(reverse('welcome',args=(username,)))
+    return HttpResponseRedirect(reverse('profile',args=(username,)))
 
+
+def profile(request,username):
+    id = request.session.get('id')
+    try:
+        obj=Student.objects.get(id=id)
+        username = obj.username
+    except:
+        return HttpResponse('404 ERROR')
+    intrests = Intrestinfo.objects.filter(fk_student=obj)
+    departments = Departmentinfo.objects.filter(fk_student=obj)
+    
+    return render_to_response('frontend/student-profile.html',locals(),context_instance=RequestContext(request)) 
+
+def logout(request):
+    sessionid = request.session.get('id')
+    try:
+        del request.session['id']
+    except:
+        pass
+    return HttpResponseRedirect('/')
+   
 
 def checkuseravailability(request,username):
     message = {'result':''}

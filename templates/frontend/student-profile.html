@@ -1,0 +1,40 @@
+Hi {{obj.username}}
+<br/>
+<a href="/logout/">Logout</a><br/>
+<a href="/change_password/{{obj.username}}/">Change Password</a><br/>
+<!--<a href="//">Logout</a><br/>-->
+<!--<a href="/logout/">Logout</a><br/>-->
+
+
+Your Profile is<br/>
+<table border=1>
+    <tr><td><a href="/">Edit Profile</a></td></tr>
+    <tr><td>
+UserName:{{obj.username}}<br/>
+Password:{{obj.password}}<br/>
+
+DOB:{{obj.dob}}<br/>
+Age:{{obj.age}}<br/>
+Eamil:{{obj.email}}<br/>
+Aemial:{{obj.amail}}<br/>
+FirstName:{{obj.firstname}}<br/>
+Lastname:{{obj.lastname}}<br/>
+College:{{obj.fk_college}}<a href="/">Add College</a><br/>
+Campaign:{{obj.fk_campaign}}<br/>
+Registration Date:{{obj.timestamp}}<br/>
+Creation IP:{{obj.ip}}<br/>
+Phone:{{obj.fk_phone}}<br/>
+Mobile:{{obj.fk_mobile}}<br/>
+</td></tr></table>
+<hr/>
+<h1>Intrest</h1><a href="/">Add Intrest</a>
+{% for i in intrests%}
+{{i.fk_intrest}}<br/>
+{%endfor%}
+<hr/>
+<h1>Department</h1><a href="/">Add Department   </a>
+{% for i in departments%}
+{{i.fk_department}}<br/>
+{%endfor%}
+<hr/>
+
