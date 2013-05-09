@@ -1,5 +1,7 @@
 from django.contrib import admin
 from frontend.models import *
+
+
 class StudentAdmin(admin.ModelAdmin):
     list_display= ['id','username']
 admin.site.register(Student , StudentAdmin)
@@ -23,4 +25,8 @@ admin.site.register(Department , DepartmentAdmin)
 class QuestionsAdmin(admin.ModelAdmin):
     list_display= ['title']
 admin.site.register(Questions , QuestionsAdmin)
+
+class Index_NewsFeedAdmin(admin.ModelAdmin):
+    list_display= ['id']
+admin.site.register(Index_NewsFeed , Index_NewsFeedAdmin)
     

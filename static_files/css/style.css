@@ -40,6 +40,14 @@ img{
         float: left;
         width:330px;
 }
+
+.headerhome{
+	
+        float: left;
+        width:330px;
+}
+
+
 .header2{
     float: left;
     width: 200px;
@@ -53,6 +61,18 @@ img{
 	
 	/*background-color:green;*/
 }
+.header31{
+    float: left;
+    width: 350px;
+	
+	/*background-color:green;*/
+}
+.header32{
+    float: right;
+    width: 100px;
+	
+	/*background-color:green;*/
+}
 
 
 
@@ -60,7 +80,7 @@ img{
 
 
 .topnav{
-	/*background-color:green;*/
+	background-color:green;
 	height:30px;
 }
 .topnav ul{
@@ -92,6 +112,48 @@ img{
 	
 	/*background-color:green;*/
 }
+
+
+
+.home{
+	width: auto;
+	height: auto;
+	/*background-color:green;*/
+}
+
+.homeleft{
+	float: left;
+	height: auto;
+	width: auto;
+	/*background-color:green;*/
+}
+.homeright{
+	float: right;
+	height: auto;
+	width: auto;
+	/*background-color:green;*/
+}
+
+.questiontitle{
+	font-size: 20px;
+	float: left;
+	height: auto;
+	width: 550px;
+	padding-left: 10px;
+	/*background-color:green;*/
+}
+.studentname{
+	font-size: 20px;
+	float: right;
+	height: auto;
+	width: auto;
+	padding-left: 500px;
+	/*background-color:green;*/
+}
+
+
+
+
 
 .left, .center, .right{
 	/*background-color:green;*/

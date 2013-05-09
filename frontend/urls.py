@@ -18,8 +18,14 @@ urlpatterns = patterns('',
     url(r'^signup-step1/$', 'frontend.views.signupstep1', name='signupstep1'),
     url(r'^signup-step2/$', 'frontend.views.signupstep2', name='signupstep2'),
     url(r'^signup-step3/$', 'frontend.views.signupstep3', name='signupstep3'),
+    url(r'^adddepartmentmanually/$', 'frontend.views.signupstep3', name='adddepartment'),
+    url(r'^addintrestmanually/$', 'frontend.views.signupstep2', name='addintrest'),
+    
+    
     url(r'^signup-step2/(?P<intrestid>\w+)/$', 'frontend.views.signupstep22', name='signupstep22'),
     url(r'^checkuseravailability/(?P<username>\w+)/$', 'frontend.views.checkuseravailability', name='checkuseravailability'),
+    url(r'^checkemailavailability/(?P<email>\w.+)/$', 'frontend.views.checkemailavailability', name='checkemailavailability'),
+    
     url(r'^submitlikequestion/(?P<id>\w+)/(?P<student>\w+)/$', 'frontend.views.submitlike', name='submitlike'),
     url(r'^submitunlikequestion/(?P<id>\w+)/(?P<student>\w+)/$', 'frontend.views.submitunlike', name='submitunlike'),
     
@@ -52,7 +58,30 @@ urlpatterns = patterns('',
     
     
     
+    
     url(r"^login/user/(?P<user_id>.+)/$", "user_login", name="loginas-user-login"),
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    url(r'^contact/$', 'frontend.views.contact', name='contact'),
+    
+    
 
 )
 

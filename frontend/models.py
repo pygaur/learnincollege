@@ -97,6 +97,18 @@ class Comment(models.Model):
     comment =models.TextField()
     likes=models.IntegerField(default=0)
     
-    
-    
+class Index_NewsFeed(models.Model):
+    first=models.TextField()
+    second=models.TextField()
+    third=models.TextField()
+    fourth=models.TextField()
+    fifth=models.TextField()
+    def __str__(self):
+        return str(id)
+
+
+
+
+
+
     

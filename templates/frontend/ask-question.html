@@ -40,7 +40,7 @@ Question:
 <select multiple='multiple' name='intrest' id='intrest' size="5">
 {% for i in intrestobj %}
 
-<option value='{{i.fk_intrest}}'>{{i.fk_intrest.intrestfieldname }}</option>
+<option value='{{i.intrestfieldname}}'>{{i.intrestfieldname }}</option>
 
 {%endfor%}
 </select>
@@ -59,7 +59,7 @@ Question:
     
 <select multiple='multiple' name='department' id='department' size="5">
 {% for i in departmentobj %}
-<option value='{{i.fk_department}}'>{{i.fk_department.departmentname}}</option>
+<option value='{{i.departmentname}}'>{{i.departmentname}}</option>
 {%endfor%}
 </select>
 </td>

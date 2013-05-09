@@ -1,21 +1,5 @@
-<table>
-    <tr>
-    </tr>
+verified ka email vericicaiton
 
-    <tr>
-        <td>
-            
-        </td>
-    </tr>
+and point milenege har kaam pe .
 
-    {% for i in intrestobj %}
-    <tr>
-        <td>
-<a href='/signup-step2/{{i.id}}/'>
-
-<img style="width: 100px; height: 80px;"src='http://{{currentsite}}/{{i.image.name}}'/>
-</a>
-        </td>
-    </tr>
-    {%endfor %}
-</table>
+kisi se poocho recommend add friend and bhut kuch

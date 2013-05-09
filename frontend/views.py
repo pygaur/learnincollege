@@ -9,7 +9,8 @@ from django.db.models import Q
 from django.http import HttpResponse
 from django.utils import simplejson
 from django.contrib.auth.models import get_hexdigest
-
+from django.core.urlresolvers import resolve
+        
 '''home page '''
 
 
@@ -34,6 +35,11 @@ from django.contrib.auth.models import get_hexdigest
 
 
 def enc_password(password):
+    """"
+    this function is responsible to generate
+    hash code of any string
+    """
+    
     import random
     algo = 'sha1'
     salt = get_hexdigest(algo, str(random.random()), str(random.random()))[:5]
@@ -43,21 +49,40 @@ def enc_password(password):
 
 
 def index(request):
-    
+    """
+    index page ,
+    entry page of our website
+    """
+    """ fetching session to check student is already login or not """
     sessionid = request.session.get('id') 
     try:
         obj = Student.objects.get(id=sessionid)
+        """
+        it will redirect to home by default if player is already login
+        into system
+        """
         return HttpResponseRedirect("/home/"+obj.username)
     except:
         pass
- 
-           
- 
+    try:
+        newsfeed=list(Index_NewsFeed.objects.all())[-1]
+    except:
+        pass
     return render_to_response('frontend/index.html',locals(),context_instance=RequestContext(request))
 
 
 
 def seestudentlike(request , id):
+    """
+    this function will return
+    students name who like any question
+    we will pass question id
+    seestudentlike(requst ,1)
+    """
+    
+    """
+    question is foreign key to likes table
+    """
     likesobj = Likes.objects.filter(fk_question__id=id)
     studentlist=[]
     for i in likesobj:
@@ -70,18 +95,39 @@ def seestudentlike(request , id):
 
 
 def home(request , username):
+    """
+    home page of student after login into system ,
+    we will also pass username,
+    
+    home(request, prashantgaur)
+    """
     sessionid = request.session.get('id') 
     try:
         obj = Student.objects.get(id=sessionid)
     except:
         return HttpResponseRedirect('/')
     
-    questionsobj = Questions.objects.all()
-    totalhitlist=[]
-    totallikelist=[]
+    # list of all questions
+    questionsobj = Questions.objects.all() 
+    # list of tatal views of questions
+    totalhitlist = []
+    #list of total likes
+    totallikelist = []
+    #count of answers respect to each questions
     answerscount = []
-    latestanswerlist=[]
+    #this list will return latest answer of eash question
+    latestanswerlist=[]                    
+    #active player is already liked any question or not.
+    likedone = []                            
     for i in questionsobj:
+        
+        likes=Likes.objects.filter(fk_student=obj,fk_question=i)
+        if likes:
+            likedone.append("YES")
+        else:
+            likedone.append("NO")
+        
+        
         totalhits=Hits.objects.filter(fk_question=i).count()
         totalhitlist.append(totalhits)
     
@@ -98,24 +144,33 @@ def home(request , username):
         else:
            for j in latestanswer:
                 latestanswerlist.append(j.answer)
-            
-            
-    print     
-    questions = zip(questionsobj, totalhitlist ,totallikelist,latestanswerlist ,answerscount)
+                    
+    questions = zip(questionsobj, totalhitlist ,totallikelist,latestanswerlist ,answerscount,likedone)
     
     
+    
+    try:
+        department=Departmentinfo.objects.get(fk_student=obj)
+    except:
+        department =None
+    intrest=Intrestinfo.objects.filter(fk_student=obj)    
+    print intrest    
     return render_to_response('frontend/home.html',locals(),context_instance=RequestContext(request))
 
 
 
 def submitlike(request ,id,student):
-    message = {'result':''}
+    message = {'result':'','already':''}
     if request.is_ajax():
         try:
             obj=Student.objects.get(username=student)
             questionobj = Questions.objects.get(id=id)
             likes=Likes.objects.get_or_create(fk_student=obj,fk_question=questionobj)
+            
+            
             message['result'] = 'True'
+            message['already'] = str(likes[1])
+            
         except:
             message['result'] = 'False'
         
@@ -172,10 +227,10 @@ def ask_question(request):
     
     if request.method == "GET":
         #intrestobj = Intrestinfo.objects.filter(fk_student=obj)
-        intrestobj = Intrestinfo.objects.all()
-        
         #departmentobj = Departmentinfo.objects.filter(fk_student=obj)
-        departmentobj = Departmentinfo.objects.all()
+        
+        intrestobj = Intrest.objects.all()
+        departmentobj = Department.objects.all()
         return render_to_response('frontend/ask-question.html',locals(),context_instance=RequestContext(request))
     
     if request.method == "POST":
@@ -185,23 +240,34 @@ def ask_question(request):
         department = request.POST.getlist('department')
         if title == "":
             response ="Please Enter Title"        
-            intrestobj = Intrestinfo.objects.filter(fk_student=obj)
-            departmentobj = Departmentinfo.objects.filter(fk_student=obj)
+            
+            #intrestobj = Intrestinfo.objects.filter(fk_student=obj)
+            #departmentobj = Departmentinfo.objects.filter(fk_student=obj)
+            intrestobj = Intrest.objects.all()
+            departmentobj = Department.objects.all()
+        
             return render_to_response('frontend/ask-question.html',locals(),context_instance=RequestContext(request))
         if subject == "":
             response ="Please Enter Subject."        
-            intrestobj = Intrestinfo.objects.filter(fk_student=obj)
-            departmentobj = Departmentinfo.objects.filter(fk_student=obj)
+            #intrestobj = Intrestinfo.objects.filter(fk_student=obj)
+            #departmentobj = Departmentinfo.objects.filter(fk_student=obj)
+            #
+            intrestobj = Intrest.objects.all()
+            departmentobj = Department.objects.all()
+        
             return render_to_response('frontend/ask-question.html',locals(),context_instance=RequestContext(request))
         if not intrest:
             response ="Please Enter Intrest."        
-            intrestobj = Intrestinfo.objects.filter(fk_student=obj)
-            departmentobj = Departmentinfo.objects.filter(fk_student=obj)
+            intrestobj = Intrest.objects.all()
+            departmentobj = Department.objects.all()
+        
+            
             return render_to_response('frontend/ask-question.html',locals(),context_instance=RequestContext(request))
         if not department:
             response ="Please Enter Department."        
-            intrestobj = Intrestinfo.objects.filter(fk_student=obj)
-            departmentobj = Departmentinfo.objects.filter(fk_student=obj)
+            intrestobj = Intrest.objects.all()
+            departmentobj = Department.objects.all()
+        
             return render_to_response('frontend/ask-question.html',locals(),context_instance=RequestContext(request))
         
         questionobj = Questions.objects.create(title=title,subject=subject,fk_student=obj)
@@ -282,7 +348,7 @@ def signupstep1(request):
         
         Dob=jstopython(str(Dob))
         age=ageverify(Dob)
-        print age         
+        
         password1=enc_password(password1)
         obj = Student.objects.create(age=age,username=Name,password=password1,email=Email,dob=Dob,ip=request.META['REMOTE_ADDR'])
         username =str(obj.username)
@@ -311,6 +377,8 @@ def signupstep2(request):
             intrestobj = intrestobj.exclude(id=j)
         intrestobj = intrestobj.filter(Q(minimumage__lte=age) and Q(maximumage__gte=age))
         currentsite = str(get_current_site(request).domain)
+        current_url = resolve(request.path_info).url_name
+        request.session['current_url'] = str(current_url)
         
         return render_to_response('frontend/signup-step2.html',locals(),context_instance=RequestContext(request))
     
@@ -318,10 +386,22 @@ def signupstep22(request,intrestid):
     id = request.session.get('id')
     try:
         obj=Student.objects.get(id=id)
+        username = obj.username
     except:
         return HttpResponse('404 ERROR')
     intrestobj = Intrest.objects.get(id=intrestid)
     Intrestinfo.objects.get_or_create(fk_student=obj,fk_intrest=intrestobj)
+    
+    
+    url = request.session.get('current_url')
+    if url == "addintrest":
+        try:
+            del request.session['current_url']
+        except:
+            pass
+        return HttpResponseRedirect(reverse('home',args=(username,)))
+    
+    
     return HttpResponseRedirect(reverse('signupstep2'))
     
 def signupstep3(request):
@@ -333,7 +413,14 @@ def signupstep3(request):
     if request.method == "GET":
         departmentobj = Department.objects.all()
         currentsite = str(get_current_site(request).domain)
+        
+        currentsite = str(get_current_site(request).domain)
+        current_url = resolve(request.path_info).url_name
+        request.session['current_url'] = str(current_url)
+           
         return render_to_response('frontend/signup-step3.html',locals(),context_instance=RequestContext(request))
+    
+    
     
 def signupstep32(request,departmentid):
     id = request.session.get('id')
@@ -344,6 +431,14 @@ def signupstep32(request,departmentid):
         return HttpResponse('404 ERROR')
     departmentobj = Department.objects.get(id=departmentid)
     Departmentinfo.objects.get_or_create(fk_student=obj,fk_department=departmentobj)
+    
+    url = request.session.get('current_url')
+    if url == "adddepartment":
+        try:
+            del request.session['current_url']
+        except:
+            pass
+        return HttpResponseRedirect(reverse('home',args=(username,)))
     return HttpResponseRedirect(reverse('profile',args=(username,)))
 
 
@@ -380,9 +475,66 @@ def checkuseravailability(request,username):
         json = simplejson.dumps(message)
         return HttpResponse(json, mimetype='application/json')    
     
+def checkemailavailability(request,email):
+    print email ,'sssssssssssssssssssssssss'
+    message = {'result':''}
+    if request.is_ajax():
+        print 'ajax recieved'
+        obj = Student.objects.filter(email=email)
+        print len(obj)
+        if len(obj) > 0:
+            message['result'] = 'True'
+        else:
+            message['result'] = 'False'
+        json = simplejson.dumps(message)
+        return HttpResponse(json, mimetype='application/json')    
     
     
     
+
+def contact(request):
+    id = request.session.get('id')
+    try:
+        obj=Student.objects.get(id=id)
+    except:
+        pass
+    
+    return render_to_response('frontend/learnincollge_contact.html',locals(),context_instance=RequestContext(request))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     
     
