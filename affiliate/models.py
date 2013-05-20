@@ -17,6 +17,8 @@ class College(models.Model):
     mobile=models.CharField(max_length=15,null=True)
     phone=models.CharField(max_length=15,null=True)
     code=models.CharField(max_length=10,unique=True,null=True)
+    def __str__(self):
+        return str(self.name)
     
 class CollegeAcademic(models.Model):
     fk_college=models.OneToOneField(College)

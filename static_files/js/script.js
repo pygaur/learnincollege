@@ -4,12 +4,23 @@ $.getJSON('/checkuseravailability/'+username+"/",
 function(data) {
 result = data.result
 if (result == "True"){
-//$('label[for="fromdate"]').show();
-alert("User Name is already registered.")
+$('label[for="fromdate"]').show();
 $('#signupsubmit').attr('disabled','disabled');
+$('#password').attr('disabled','disabled');
+$('#cpassword').attr('disabled','disabled');
+$('#email').attr('disabled','disabled');
+$('#dob').attr('disabled','disabled');
+
 }
 if (result == "False"){
+$('label[for="fromdate"]').hide();
+
 $("#signupsubmit").removeAttr("disabled");
+$("#password").removeAttr("disabled");
+$("#cpassword").removeAttr("disabled");
+$("#email").removeAttr("disabled");
+$("#dob").removeAttr("disabled");
+
 }});}
 
 
@@ -22,11 +33,19 @@ function(data) {
     
 result = data.result
 if (result == "True"){
-alert("Email-address is already registered.")
+$('label[for="email"]').show();
 $('#signupsubmit').attr('disabled','disabled');
+$('#dob').attr('disabled','disabled');
+$('#username').attr('disabled','disabled');
+
 }
 if (result == "False"){
+$('label[for="email"]').hide();
+
 $("#signupsubmit").removeAttr("disabled");
+$("#dob").removeAttr("disabled");
+$('#usename').attr('disabled','disabled');
+
 }});}
 
 
@@ -77,12 +96,18 @@ var password = $("#password").val();
 
 var cpassword = $("#cpassword").val();
     if (password != cpassword) {
-	alert("Password is not matching.")
+	$('label[for="password"]').show();
+	$('#username').attr('disabled','disabled');
+
 	$('#signupsubmit').attr('disabled','disabled');
+	$('#email').attr('disabled','disabled');
     }
     
     if (password == cpassword) {
+	$('label[for="password"]').hide();
 	$("#signupsubmit").removeAttr("disabled");
+	$("#username").removeAttr("disabled");
+	$("#email").removeAttr("disabled");
     }
     
 }

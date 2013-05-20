@@ -15,6 +15,9 @@ urlpatterns = patterns('',
     
     url(r'^', include('frontend.urls')),
     url(r'^', include('affiliate.urls')),
+    url(r'^lica/', include('lica.urls')),
+    url(r'', include('social_auth.urls')),
+    
     
     # Examples:
     # url(r'^$', 'collegeportal.views.home', name='home'),

@@ -8,19 +8,7 @@
 <meta name="author" content="prashant gaur" />
 <meta name="description" content="learning website" />
 
-
-
-
-<title>learnincollege.com</title>
-<link href="/static_files/css/style.css" rel="stylesheet" type="text/css" />
-<script src='/static_files/js/jquery.js' type="text/javascript"></script>
-<script src='/static_files/js/jquery.min.js' type="text/javascript"></script>
-<script src='/static_files/js/jquery-1.5.1.js' type="text/javascript"></script>
-
-<script src='/static_files/js/script.js' type="text/javascript"></script>
-
 <script type="text/javascript">
-
 var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-39417634-1']);
 _gaq.push(['_trackPageview']);
@@ -30,85 +18,68 @@ var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async
 ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 })();
-
 </script>
 
 
 
+<title>learnincollege.com</title>
+<link href="/static_files/css/style.css" rel="stylesheet" type="text/css" />
+<script src='/static_files/js/jquery.js' type="text/javascript"></script>
+<script src='/static_files/js/jquery.min.js' type="text/javascript"></script>
+<script src='/static_files/js/jquery-1.5.1.js' type="text/javascript"></script>
+<script src='/static_files/js/script.js' type="text/javascript"></script>
 <link rel="stylesheet" href="/static_files/js/nivo-slider/themes/default/default.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="/static_files/js/nivo-slider/themes/light/light.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="/static_files/js/nivo-slider/themes/dark/dark.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="/static_files/js/nivo-slider/themes/bar/bar.css" type="text/css" media="screen" />
-
 <link rel="stylesheet" href="/static_files/js/nivo-slider/nivo-slider.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="/static_files/js/nivo-slider/demo/style.css" type="text/css" media="screen" />
 <script type="text/javascript" src="/static_files/js/nivo-slider/jquery-1.9.1.min.js"></script>
 <script type="text/javascript" src="/static_files/js/nivo-slider/jquery.nivo.slider.js"></script>
+<script type="text/javascript" src="/static_files/js/datepicker/glDatePicker.min.js"></script>
+<link href="/static_files/js/datepicker/styles/glDatePicker.default.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+
 
 <script type="text/javascript">
 $(window).load(function() {
 $('#slider').nivoSlider();
-});
-</script>
-
-
-
-<script type="text/javascript" src="/static_files/js/datepicker/glDatePicker.min.js"></script>
-<link href="/static_files/js/datepicker/styles/glDatePicker.default.css" rel="stylesheet" type="text/css">
-<script type="text/javascript">
-$(window).load(function()
-{
 $('#dob').glDatePicker();
+$('#dob1').glDatePicker();
 });
 </script>
-
-
-
 </head>
-<body>
 
+
+<body>
 <div class="maincon">
 <div class="header">
 
 
 <div class="header1">
-Learnincollege.com
-
+<img src="/static_files/images/intrest/logo.jpg" style="width:330px ; height: 110px;"/>
 </div>
 
 <div class="header2">
-Learnincollege.com
+{% include "frontend/html/login.html" %}
 </div>
 
+
 <div class="header3">
-
-
 <div class="header31">
-<form action="/student-signin/" method="post" name='studentsignin' > 
-{% csrf_token %}
-<table>
-<tbody>
-<tr>
-<td>
-UserName:
-</td>
-<td> 
-<input placeholder="* User Name" required="" type="text" name="id_username" value="" id='id_username'/>
-</td></tr>
-<tr><td>Password:</td>
-<td><input type="password" placeholder="* Password" required="" name="id_password" value="" id='id_password'/></td>
-<tr><td>
-<input type="image"   src="/static_files/images/intrest/login.png"  id="submit" style="height: 30px;"/>
-<td>
-<input type="image"   src="/static_files/images/intrest/forgot.gif"  id="forgotsubmit" style="height: 30px;"/>
-</td>
-</td></tr>
-</tbody>
-</table>
-</form>
+
+
+
+
+
+
 </div>                
+
+
 <div class="header32">
-<!--<div id="fb-root"></div>
+<div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
@@ -116,29 +87,36 @@ UserName:
   js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-<div class="fb-like" data-send="true" data-width="450" data-show-faces="true"></div>
--->
 
-
-<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.learnincollege.com&amp;layout=standard&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=80"
-        scrolling="no" frameborder="0"
-        style="border:none; overflow:hidden; width:100%; height:80px;" allowTransparency="true">
-  
-</iframe>
-<style>.fbook{position: absolute; font-color:#ddd; top:-1668px; font-size:10;}
-</style></style>
-<a href="http://www.kosmetikstudio-hamburg.net/waxing-hamburg" class="fbook">www.</a>
-<style>.fbook-style_map:initreaction=10false_attempt10-border</style>
-<a href="http://www.kosmetikstudio-hamburg.net/haarentfernung-hamburg" class="fbook">
-Homepage besuchen</a>
-<style>closemap"init"if=fb_connect-start="25"check_bandwith</style>
-
-
+<div class="fb-like" data-href="http://facebook.com/learnincollege" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+<br/>
 <a href="https://twitter.com/_lic_www" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false">Follow @_lic_www</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
-<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
-<g:plusone></g:plusone>
+
+<script src="//platform.linkedin.com/in.js" type="text/javascript">
+ lang: en_US
+</script>
+<script type="IN/Share" data-url="learnincollege.com" data-counter="right"></script>
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="fb-send" data-href="http://www.learnincollege.com" data-font="verdana"></div> 
+<br/>
+<a href="mailto:learnincollege@gmail.com">
+<img src="/static_files/images/intrest/mail-me.jpeg" style="height: 40px; width: 40px;">
+</a>
+
+
+</div>
+
 
 </div>
 </div>
@@ -146,62 +124,79 @@ Homepage besuchen</a>
 
 
 
-
-
-
-
-</div>
+<div class="clear"></div>
 <div class="topnav">
 <ul>
-
-
 <li><a href="/">Home</a></li>
 <li><a href="/contact/">Contact Us</a></li>
 <li style="border:none;"><a href="/aboutus.html/">About Us</a></li>
+<li style="border:none;"><a href="/ask-question/">Ask Question</a></li>
+
 </ul>
 
 
 </div>
+
+
+
 <div class="clear"></div>
 
 <div class="flash">
 
-<div class="flashleft">
-<form action='/signup-step1/' name='signup' method="POST" >
-{% csrf_token %}
-<table width='260' border="0" cellpadding="0" cellspacing="0" align="left">
-<tr>
-<td width='215'>
+<div class="flashleft-content">
+  
+<!--Learnincollege.com is a question and-->
+<!--answer website for college student as well asself learner .Any one can ask any kind of-->
+<!--question in related fields It's 100% free,registration  is required. -->
 
-<input type='text' placeholder="* User Name" name='username' id='username' value='' required=""/></div></td>
-<label for="fromdate" style="display:none">User Name is already registered.</label>
-</tr>   
-<tr>
-<td width='215'><input type='password' placeholder="* Password" name='password' id='password' value='' required=""/></td>
-</tr>   
-<tr>
-<td width='215'><input type='password' placeholder="* Repeat Password" name='cpassword' id='cpassword' value='' required="" onblur="password_repeat();"/></td>
-</tr>   
-<tr>
-<td width='215'><input type='text' placeholder="* Email" name='email' id='email' value='' required=""/></td>
-</tr>   
-<tr>
-<td width='215'><input type='text' placeholder="* Date of Birth" name='dob' id='dob' value='' required=""/></td>
-</tr>   
+{%  include "frontend/html/signup.html" %}
 
-<tr>
-<td><input type='submit' name='signupsubmit' id='signupsubmit' value='Submit'/></td>
-</tr>
-</table>
-</form>   
-</div>
+
 </div>
 
 
+
+
+<div class="flashleft-images">
+<img src="/static_files/images/intrest/flash-1.jpeg" style="height: 40px; width: 40px;"/>
+<br/>
+Any Body can
+ask a
+question.</div>
+
+<div class="flashleft-line">
+<img src="/static_files/images/intrest/black.jpg" style="width: 1px ; height: 200px;"/>
+</div>
+
+<div class="flashleft-images">
+<img src="/static_files/images/intrest/flash-2.jpeg" style="height: 40px; width: 40px;"/>
+<br/>
+Anybody can answer.
+</div>
+
+<div class="flashleft-line">
+<img src="/static_files/images/intrest/black.jpg" style="width: 1px ; height: 200px;"/>
+</div>
+<div class="flashleft-images">
+<img src="/static_files/images/intrest/flash-3.jpeg" style="height: 40px; width: 40px;"/>
+<br/>
+You need to be a registered user.
+</div>
+
+<div class="flashleft-line">
+<img src="/static_files/images/intrest/black.jpg" style="width: 1px ; height: 200px;"/>
+</div>
+<div class="flashleft-images">
+<img src="/static_files/images/intrest/flash-4.jpeg" style="height: 40px; width: 40px;"/>
+<br/>Best Questions and Answers will be voted out
+and respenctive player will bonus points .
+</div>
+
+<div class="flashleft-line">
+<img src="/static_files/images/intrest/black.jpg" style="width: 1px ; height: 200px;"/>
+</div>
+</div>
 <div class="clear"></div>
-
-
-
 <div class="mainbody">
 <div class="left">
 You can  connect with us without being part a of any college , just simply register yourself with above signup form.
@@ -219,9 +214,11 @@ Magaziene</a>.
 <div id="wrapper" style="height: 280px;">
 <div class="slider-wrapper theme-default">
 <div id="slider" class="nivoSlider">
-<img src="/static_files/images/templates/toystory.jpg" data-thumb="/static_files/js/nivo-slider/demo/images/toystory.jpg" alt="" />
-<img src="/static_files/images/templates/walle.jpg" data-thumb="/static_files/js/nivo-slider/demo/images/walle.jpg" alt="" data-transition="slideInLeft" />
-<img src="/static_files/images/templates/nemo.jpg" data-thumb="/static_files/js/nivo-slider/demo/images/nemo.jpg" alt="" title="#htmlcaption" />
+<img src="/static_files/images/templates/up.jpg" data-thumb="/static_files/js/nivo-slider/demo/images/nemo.jpg" alt="" title="#htmlcaption" style="height: 246px;" width=500/>
+
+<img src="/static_files/images/templates/toystory.jpg" data-thumb="/static_files/js/nivo-slider/demo/images/toystory.jpg" alt="" style="height: 246px;" width=500/>
+<img src="/static_files/images/templates/walle.jpg" data-thumb="/static_files/js/nivo-slider/demo/images/walle.jpg" alt="" data-transition="slideInLeft"  width=500 style="height: 246px;"/>
+<img src="/static_files/images/templates/nemo.jpg" data-thumb="/static_files/js/nivo-slider/demo/images/nemo.jpg" alt="" title="#htmlcaption"  width=500 style="height: 246px;"/>
 </div>
 <div id="htmlcaption" class="nivo-html-caption">
 </div>

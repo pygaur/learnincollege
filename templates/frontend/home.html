@@ -90,24 +90,26 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 </head>
 <body>
 
+
+    
 <div class="maincon">
 <div class="header">
+<div class="headerleft" style="float: left;">
+<img src="/static_files/images/intrest/logo.jpg" style="width:330px ; height: 110px;"/>
+</div>
 
+<div class="headerright" style="float: right;">
 
-<div class="headerhome">
-    
-
-    
-<h3>Welcome ,{{obj.username}}</h3>
-
-<h3>Department : {% if department|slugify == 'none' %}
+<h3>
+Welcome ,{{obj.username}}
+<br/>
+Department : {% if department|slugify == 'none' %}
 <a href="{% url adddepartment %}">Add Department</a>
 {%else%}
 <a href="/departmentinfo/{{department.fk_department.id}}">{{department.fk_department}}</a>
 {%endif%}
+<br/>
 
-</h3>
-<h3>
 Intrest :
 {% if intrest %}
 {%for i in intrest%}
@@ -116,36 +118,15 @@ Intrest :
 {%else%}
 <a href="{% url addintrest %}">Add Intrest</a>
 {%endif%}
+<br/>
+Points :  {{obj.bonuspoints}}
+<br/>
+    Level : {{obj.level}}
 </h3>
 </div>
 
-<div class="header2">
-Learnincollege.com
-</div>
-
-<div class="header3">
 
 
-<div class="header31">
-</div>                
-<div class="header32">
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-<div class="fb-like" data-send="true" data-width="450" data-show-faces="true"></div>
-<a href="https://twitter.com/_lic_www" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false">Follow @_lic_www</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-
-<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
-<g:plusone></g:plusone>
-
-</div>
-</div>
 
 
 
@@ -173,17 +154,45 @@ Learnincollege.com
 </div>
 <div class="clear"></div>
 
+
+
 <div class="home">
-<div class="homeleft">
+<div class="homeleft" style="float: left; height: auto; width: 500px; padding-right: 10px;">
+{% if questions.object_list %}
 
 
 
-{% if questions %}
-{% for i ,j ,k ,l,m ,n in questions %}
 
-<div class="questiontitle">
+<p>    {% if questions.object_list and questions.paginator.num_pages > 1 %}
+<div class="pagination" style=" margin-top: 20px; margin-left: 30px;  ">
+<span class="step-links">
+{% if questions.has_previous %}
+<a href= "?page={{ questions.previous_page_number }}">Previous &lt;&lt; </a>
+{% endif %}
+
+<span class="current">
+&nbsp;Page {{ questions.number }} of {{ questions.paginator.num_pages }}
+</span>
+
+{% if questions.has_next %}
+<a href="?page={{ questions.next_page_number }}"> &gt;&gt; Next</a>
+{% endif %}
+</span>
+</div>
+{% endif %}
+
+</p>
+
+
+
+
+{% for i ,j ,k ,l,m ,n in questions.object_list %}
+
+<div class="questiontitle" style="font-size: 30px;">
 <a href="/question/{{i.id}}">{{i.title}} </a>
 </div>
+
+
 <div class="clear"></div>
 
 <div class="studentname">
@@ -224,15 +233,9 @@ Learnincollege.com
 
 </div>
 
-
-
-
-
-
-
-
-<div class="homeright">
+<div class="homeright" style="float: left; height: 100px;">
     <h1><a href="/ask-question/"  >Ask A question</a></h1>
+    
     <h1>Filter Intrest:
     <select name="filterintrest" id="filterintrest" >
     <option value="">----select----</option>    
@@ -255,7 +258,7 @@ Learnincollege.com
     </select>
     </h1>
     
-<textarea cols=50 rows=100>
+<textarea cols=50 rows=50>
 Top Questions:
 
 </textarea>    

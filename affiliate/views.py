@@ -105,9 +105,11 @@ def signin(request):
         
         
         Password=collegeobj.password
+        
         if password == Password:
             request.session['affid'] = str(collegeobj.id)
-            return HttpResponseRedirect('/profile-college/')    
+            return HttpResponseRedirect(reverse('affiliate-profile'))
+    
             
     if request.method == "GET":
         return HttpResponseRedirect('/affiliate/')
@@ -183,11 +185,6 @@ def editprofile(request):
         return render_to_response("affiliate/edit-profile.html",locals(),context_instance=RequestContext(request))
         
         
-        
-        
-        
-        
-
 def editprofileextra(request):
     sessionid = request.session.get('affid') 
     try:

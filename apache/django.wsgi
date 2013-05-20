@@ -1,9 +1,9 @@
 import os
 import sys
-path = '/home/menmine/Desktop'
+path = '/home/menmine/Documents'
 if path not in sys.path:   
     sys.path.append(path)
-    sys.path.insert(0,"/home/menmine/Desktop/collegeportal")
+    sys.path.insert(0,"/home/menmine/Documents/collegeportal")
 #os.environ['DJANGO_SETTINGS_MODULE'] = 'collegeportal.settings'
 
 import settings

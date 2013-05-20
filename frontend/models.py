@@ -1,5 +1,6 @@
 from django.db import models
 from affiliate.models import *
+from lica.model_meta import EnumField , STUDENTLEVEL
 # Create your models here.
 
 
@@ -31,11 +32,15 @@ class Student(models.Model):
     middlename =models.CharField(max_length = 30,blank=True,verbose_name='Middle Name',null=True)
     lastname =models.CharField(max_length = 30,blank=True,verbose_name='Last Name',null=True)
     fk_college = models.ForeignKey(College,null=True)
-    fk_camaign = models.ForeignKey(Campaign,null=True)
+    fk_campaign = models.ForeignKey(Campaign,null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     ip = models.IPAddressField(null=True,blank=True)
     phone=models.CharField(max_length=20,null=True,blank=True)
     mobile=models.CharField(max_length=20,null=True,blank=True)
+    bonuspoints=models.DecimalField(max_digits=10, decimal_places=2,default=0)
+    verified=models.BooleanField(default=False)
+    verifiedat=models.DateTimeField(null=True)
+    level=EnumField(choices=STUDENTLEVEL)
     def __str__(self):
         return str(self.username)
     

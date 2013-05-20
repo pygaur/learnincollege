@@ -1,0 +1,69 @@
+<form action="/student-signin/" method="post" name='studentsignin' > 
+{% csrf_token %}
+<table>
+<tr>
+  <td>
+<label for="password" style="display:none">Please enter correct password.</label>
+  </td>
+</tr>
+<tr>
+<td>
+UserName:
+</td>
+<td> 
+<input placeholder="* User Name" required="" type="text" name="id_username" value="" id='id_username'/>
+</td>
+</tr>
+<tr>
+  <td>Password:
+  </td>
+<td><input type="password" placeholder="* Password" required="" name="id_password" value="" id='id_password'/></td>
+</tr>
+<tr><td>
+<input type="image"   src="/static_files/images/intrest/login.png"  id="submit" style="height: 30px;"/>
+<td>
+<input type="image"   src="/static_files/images/intrest/forgot.gif"  id="forgotsubmit" style="height: 30px;"/>
+</td>
+</td>
+</tr>
+</table>
+</form>
+</div>                
+
+
+
+
+<form action='/signup-step1/' name='signup' method="POST" >
+{% csrf_token %}
+<table width='260' border="0" cellpadding="0" cellspacing="0" align="left">
+<tr>
+  <td>
+<label for="fromdate" style="display:none">User Name is already registered.</label>
+<label for="password" style="display:none">Password is not matching.</label>
+<label for="email" style="display:none">Email-address is already registered.</label>
+    
+  </td>
+</tr>
+<tr>
+<td width='215'>
+
+<input type='text' placeholder="* User Name" name='username' id='username' value='' required=""/></div></td>
+</tr>   
+<tr>
+<td width='215'><input type='password' placeholder="* Password" name='password' id='password' value='' required=""/></td>
+</tr>   
+<tr>
+<td width='215'><input type='password' placeholder="* Repeat Password" name='cpassword' id='cpassword' value='' required="" onblur="password_repeat();"/></td>
+</tr>   
+<tr>
+<td width='215'><input type='text' placeholder="* Email" name='email' id='email' value='' required=""/></td>
+</tr>   
+<tr>
+<td width='215'><input type='text' placeholder="* Date of Birth" name='dob' id='dob' value='' required=""/></td>
+</tr>   
+
+<tr>
+<td><input type='submit' name='signupsubmit' id='signupsubmit' value='Submit'/></td>
+</tr>
+</table>
+</form>   
