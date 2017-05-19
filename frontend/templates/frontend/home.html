@@ -12,12 +12,12 @@
 
 
 <title>learnincollege.com</title>
-<link href="/static_files/css/style.css" rel="stylesheet" type="text/css" />
-<script src='/static_files/js/jquery.js' type="text/javascript"></script>
-<script src='/static_files/js/jquery.min.js' type="text/javascript"></script>
-<script src='/static_files/js/jquery-1.5.1.js' type="text/javascript"></script>
+<link href="/static/css/style.css" rel="stylesheet" type="text/css" />
+<script src='/static/js/jquery.js' type="text/javascript"></script>
+<script src='/static/js/jquery.min.js' type="text/javascript"></script>
+<script src='/static/js/jquery-1.5.1.js' type="text/javascript"></script>
 
-<script src='/static_files/js/script.js' type="text/javascript"></script>
+<script src='/static/js/script.js' type="text/javascript"></script>
 <script type="text/javascript">
 function popup(thisUrl,thisWidth,thisHeight,thisTop,thisLeft) {
    optionString = ('width=' + thisWidth + ',height=' + thisHeight + ',top=' + thisTop + ',left=' + thisLeft + ',toolbar=no, location=no, directories=no,status=no,menubar=no,resizable=yes,scrollbars=yes');
@@ -95,7 +95,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <div class="maincon">
 <div class="header">
 <div class="headerleft" style="float: left;">
-<img src="/static_files/images/intrest/logo.jpg" style="width:330px ; height: 110px;"/>
+<img src="/static/images/intrest/logo.jpg" style="width:330px ; height: 110px;"/>
 </div>
 
 <div class="headerright" style="float: right;">
@@ -203,10 +203,10 @@ Points :  {{obj.bonuspoints}}
 <br/>
 
 {% if n|slugify == "yes" %}
-<input type="image" src="/static_files/images/intrest/unlike.jpeg" style="height: 30px; width: 70px;" id="unlikes{{i.id}}" />
+<input type="image" src="/static/images/intrest/unlike.jpeg" style="height: 30px; width: 70px;" id="unlikes{{i.id}}" />
 
 {%else%}
-<input type="image" src="/static_files/images/intrest/like.png" style="height: 30px; width: 70px;" id="likes{{i.id}}" />
+<input type="image" src="/static/images/intrest/like.png" style="height: 30px; width: 70px;" id="likes{{i.id}}" />
 {%endif%}
 
 <input onclick="javascript: popup('/submit_answer/{{i.id}}/', 500, 350, 0, 0);" onmouseover="window.status='Click to give answer.'; return true;" onmouseout="window.status=''; return true;" type="submit" value="Answer"/>
