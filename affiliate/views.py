@@ -1,19 +1,22 @@
 # Create your views here.
+import time
+
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from affiliate.models import *
 from django.http import HttpResponse ,HttpResponseRedirect
-from django.core.validators import email_re
-import time
-from django.contrib.sites.models import get_current_site
+from django.core.validators import validate_email
+try:
+    from django.contrib.sites.models import get_current_site
+except ImportError:
+    from django.contrib.sites.shortcuts import get_current_site
 
+from affiliate.models import *
 
 
 def is_valid_email(email):
-    if email_re.match(email):
+    if validate_email(email):
         return True
     return False
-
 
 
 def home(request):

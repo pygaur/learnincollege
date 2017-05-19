@@ -1,4 +1,4 @@
-"""src URL Configuration
+"""learnincollege URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.11/topics/http/urls/
@@ -15,7 +15,7 @@ Including another URLconf
 """
 import os
 
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 
 static_files = os.path.join(
@@ -27,9 +27,9 @@ urlpatterns = [
     url(r'^', include('frontend.urls')),
     url(r'^', include('affiliate.urls')),
     url(r'^lica/', include('lica.urls')),
-    url(r'', include('social_auth.urls')),
+    #url(r'', include('social_auth.urls')),
 ]
 
-urlpatterns += patterns('loginas.views',
-    url(r"^login/user/(?P<user_id>.+)/$", "user_login", name="loginas-user-login"),
-)
+#urlpatterns += ['loginas.views',
+#    url(r"^login/user/(?P<user_id>.+)/$", "user_login", name="loginas-user-login"),
+#)

@@ -1,30 +1,32 @@
+import re
+import json as simplejson
+
+from datetime import datetime , timedelta
+
 from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
-from frontend.models import *
 from django.http import HttpRequest , HttpResponseRedirect
-from frontend.function import *
-from django.contrib.sites.models import get_current_site
 from django.db.models import Q
 from django.http import HttpResponse
-from django.utils import simplejson
-from django.contrib.auth.models import get_hexdigest
 from django.core.urlresolvers import resolve
-from  django.core.paginator import Paginator , InvalidPage , EmptyPage
+from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.views.generic.base import TemplateView
-import re
-from datetime import datetime , timedelta
-'''home page '''
+try:
+    from django.contrib.sites.models import get_current_site
+except ImportError:
+    from django.contrib.sites.shortcuts import get_current_site
 
-
+from utils import get_hexdigest
+from frontend.models import *
+from frontend.function import *
 
 
 def enc_password(password):
     """"
     this function is responsible to generate
     hash code of any string
-    """
-    
+    """    
     import random
     algo = 'sha1'
     salt = get_hexdigest(algo, str(random.random()), str(random.random()))[:5]
@@ -33,9 +35,7 @@ def enc_password(password):
     return password
 
 
-def index(request):
-    
-    
+def index(request):       
     """
     index page ,
     entry page of our website
@@ -55,7 +55,7 @@ def index(request):
         newsfeed=list(Index_NewsFeed.objects.all())[-1]
     except:
         pass
-    return render_to_response('frontend/index.html',locals(),context_instance=RequestContext(request))
+    return render_to_response('frontend/index.html',locals())
 
 
 
@@ -76,7 +76,7 @@ def seestudentlike(request , id):
         studentlist.append(str(i.fk_student.username))
     
     studentlist=list(set(studentlist))
-    return render_to_response('frontend/see-likes-students.html',locals(),context_instance=RequestContext(request))
+    return render_to_response('frontend/see-likes-students.html',locals())
 
 
 
@@ -188,7 +188,7 @@ def home(request , username):
     intrest=Intrestinfo.objects.filter(fk_student=obj)    
     
     
-    return render_to_response('frontend/home.html',locals(),context_instance=RequestContext(request))
+    return render_to_response('frontend/home.html',locals())
 
 
 
@@ -267,7 +267,7 @@ def questiondetails(request ,id):
     totalhits=Hits.objects.filter(fk_question=questionobj).count()
     totallikes=Likes.objects.filter(fk_question=questionobj).count()
     
-    return render_to_response('frontend/question-details.html',locals(),context_instance=RequestContext(request))
+    return render_to_response('frontend/question-details.html',locals())
 
 
 
@@ -285,7 +285,7 @@ def ask_question(request):
         lasturl = request.META['HTTP_REFERER'].split('/')[3]
     
         if lasturl == "":
-            return render_to_response("frontend/html/login.html",context_instance=RequestContext(request))
+            return render_to_response("frontend/html/login.html")
     except:
         pass
     sessionid = request.session.get('id') 
@@ -300,7 +300,7 @@ def ask_question(request):
         
         intrestobj = Intrest.objects.all()
         departmentobj = Department.objects.all()
-        return render_to_response('frontend/ask-question.html',locals(),context_instance=RequestContext(request))
+        return render_to_response('frontend/ask-question.html',locals())
     
     if request.method == "POST":
         title = request.POST.get('title')
@@ -315,7 +315,7 @@ def ask_question(request):
             intrestobj = Intrest.objects.all()
             departmentobj = Department.objects.all()
         
-            return render_to_response('frontend/ask-question.html',locals(),context_instance=RequestContext(request))
+            return render_to_response('frontend/ask-question.html',locals())
         if subject == "":
             response ="Please Enter Subject."        
             #intrestobj = Intrestinfo.objects.filter(fk_student=obj)
@@ -324,20 +324,20 @@ def ask_question(request):
             intrestobj = Intrest.objects.all()
             departmentobj = Department.objects.all()
         
-            return render_to_response('frontend/ask-question.html',locals(),context_instance=RequestContext(request))
+            return render_to_response('frontend/ask-question.html',locals())
         if not intrest:
             response ="Please Enter Intrest."        
             intrestobj = Intrest.objects.all()
             departmentobj = Department.objects.all()
         
             
-            return render_to_response('frontend/ask-question.html',locals(),context_instance=RequestContext(request))
+            return render_to_response('frontend/ask-question.html',locals())
         if not department:
             response ="Please Enter Department."        
             intrestobj = Intrest.objects.all()
             departmentobj = Department.objects.all()
         
-            return render_to_response('frontend/ask-question.html',locals(),context_instance=RequestContext(request))
+            return render_to_response('frontend/ask-question.html',locals())
         
         #for i in range(1,5000):
         questionobj = Questions.objects.create(title=title,subject=subject,fk_student=obj)
@@ -369,20 +369,20 @@ def submitanswer(request,id):
     
     """
     if request.method == 'GET':
-        return render_to_response('frontend/submit-answer.html',locals(),context_instance=RequestContext(request))
+        return render_to_response('frontend/submit-answer.html',locals())
     
     if request.method == 'POST':
         answer=request.POST.get('answer')
         if answer == '':
             response = "Please Enter Message."
-            return render_to_response('frontend/submit-answer.html',locals(),context_instance=RequestContext(request))
+            return render_to_response('frontend/submit-answer.html',locals())
         
         questionobj=Questions.objects.get(id=int(id))
         Answers.objects.create(fk_questions=questionobj,answer=answer)
         
         
         string='done'        
-        return render_to_response('frontend/submit-answer.html',locals(),context_instance=RequestContext(request))
+        return render_to_response('frontend/submit-answer.html',locals())
 
 
 
@@ -406,18 +406,18 @@ def signin(request):
         
         if username == "":
             login_response = "Please Enter Your  Username."
-            return render_to_response("frontend/index.html",locals(),context_instance=RequestContext(request))
+            return render_to_response("frontend/index.html",locals())
         
         if password == "":
             login_response = "Please Enter Your  Password."
-            return render_to_response("frontend/index.html",locals(),context_instance=RequestContext(request))
+            return render_to_response("frontend/index.html",locals())
         
         try:
             obj=Student.objects.get(username=username)
             loginlogs=Loginlogs.objects.create(fk_student=obj,loginip=request.META["REMOTE_ADDR"])
         except:
             login_response = "Username is not registered with use."
-            return render_to_response("frontend/index.html",locals(),context_instance=RequestContext(request))
+            return render_to_response("frontend/index.html",locals())
         
         dbpassword = obj.password
         '''hash function password hash function generation'''
@@ -444,14 +444,14 @@ def signin(request):
             return HttpResponseRedirect("/home/"+obj.username)
         else:
             login_response = "Please enter corrent password."
-            return render_to_response("frontend/index.html",locals(),context_instance=RequestContext(request))
+            return render_to_response("frontend/index.html",locals())
         
         
 
 
 class SignupStep1(TemplateView):
     def get(self,request):
-        return render_to_response('frontend/index.html',locals(),context_instance=RequestContext(request))
+        return render_to_response('frontend/index.html',locals())
     
     
     
@@ -578,7 +578,7 @@ def signupstep2(request):
         current_url = resolve(request.path_info).url_name
         request.session['current_url'] = str(current_url)
         
-        return render_to_response('frontend/signup-step2.html',locals(),context_instance=RequestContext(request))
+        return render_to_response('frontend/signup-step2.html',locals())
     
 def signupstep22(request,intrestid):
     id = request.session.get('id')
@@ -616,7 +616,7 @@ def signupstep3(request):
         current_url = resolve(request.path_info).url_name
         request.session['current_url'] = str(current_url)
            
-        return render_to_response('frontend/signup-step3.html',locals(),context_instance=RequestContext(request))
+        return render_to_response('frontend/signup-step3.html',locals())
     
     
     
@@ -650,7 +650,7 @@ def profile(request,username):
     intrests = Intrestinfo.objects.filter(fk_student=obj)
     departments = Departmentinfo.objects.filter(fk_student=obj)
     
-    return render_to_response('frontend/student-profile.html',locals(),context_instance=RequestContext(request)) 
+    return render_to_response('frontend/student-profile.html',locals()) 
 
 def logout(request):
     """
@@ -779,7 +779,7 @@ def contact(request):
     except:
         pass
     
-    return render_to_response('frontend/learnincollge_contact.html',locals(),context_instance=RequestContext(request))
+    return render_to_response('frontend/learnincollge_contact.html',locals())
 
 
 def emailverify(request, username, token):
@@ -798,7 +798,7 @@ def emailverify(request, username, token):
 
 class PasswordReset(TemplateView):
     def get(self,request):
-        return render_to_response('frontend/forgot_password.html',locals(),context_instance=RequestContext(request))
+        return render_to_response('frontend/forgot_password.html',locals())
     
     def post(self,request):
         email=request.POST.get('email')
@@ -829,7 +829,7 @@ class PasswordReset(TemplateView):
         mail.emailverificationmail(tokenobj)
         
         
-        return render_to_response('frontend/forgot_password.html',locals(),context_instance=RequestContext(request))
+        return render_to_response('frontend/forgot_password.html',locals())
 
 class PasswordResetAction(TemplateView):
     def get(self,request,username,token ,expireid):
@@ -851,7 +851,7 @@ class PasswordResetAction(TemplateView):
             return HttpResponse("Link is being expired.")
         
         
-        return render_to_response('frontend/password_reset_action.html',locals(),context_instance=RequestContext(request))
+        return render_to_response('frontend/password_reset_action.html',locals())
 
     def post(self,request,username,token,expireid):
         try:
