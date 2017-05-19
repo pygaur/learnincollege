@@ -4,7 +4,7 @@ from lica.models import *
 class MessagesettingsAdmin(admin.ModelAdmin):
     list_display=['id']
     class Media:
-        js=("/static_files/js/tiny_mce/tiny_mce.js",'/static_files/js/admin_textareas.js')
+        js=("/static/js/tiny_mce/tiny_mce.js",'/static/js/admin_textareas.js')
     
     
 admin.site.register(Messagesettings , MessagesettingsAdmin)
