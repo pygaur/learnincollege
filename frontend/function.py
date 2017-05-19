@@ -6,7 +6,7 @@ from django.template import Context , Template
 import time
 import string
 from random import choice
-from django.core.validators import email_re
+from django.core.validators import validate_email
 
 
 def ageverify(Birthday):
@@ -30,7 +30,7 @@ def jstopython(Dob):
     return Dob
 
 def is_valid_email(email):
-    if email_re.match(email):
+    if validate_email(email):
         return True
     return False
     

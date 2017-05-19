@@ -9,7 +9,7 @@ class College(models.Model):
     zone=models.CharField(max_length=30,null=True)
     zipcode=models.IntegerField(null=True)
     registrationat=models.DateTimeField(auto_now_add=True,null=True)
-    ip=models.IPAddressField(null=True)
+    ip=models.GenericIPAddressField(null=True)
     university=models.CharField(null=True,max_length=100)
     address=models.TextField(null=True)
     email=models.EmailField(null=True)

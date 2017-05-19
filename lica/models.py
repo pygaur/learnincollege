@@ -56,7 +56,7 @@ class Loginlogs(models.Model):
     """
     fk_student=models.ForeignKey(Student)
     timestamp=models.DateTimeField(auto_now_add=True)
-    loginip=models.IPAddressField()
+    loginip=models.GenericIPAddressField()
     loginok=models.BooleanField(default=False)
     uniquelogin=models.BooleanField(default=False)
 

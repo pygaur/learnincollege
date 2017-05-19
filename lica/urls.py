@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import patterns, include, url
+from django.conf.urls import include, url
 from django.contrib import admin
 admin.autodiscover()
 import os
@@ -8,10 +8,10 @@ from lica.views import *
 
 
 
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^$', Dashboard.as_view(), name='dashboard'),
     url(r'^admin/', include(admin.site.urls)),
-    )
+    ]
 
 
 
